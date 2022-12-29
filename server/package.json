@@ -1,10 +1,14 @@
 {
-  "name": "server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ayrow/mern-blog.git"
   },
   "author": "",
   "license": "ISC",
@@ -16,5 +20,12 @@
     "mongoose": "^6.8.1",
     "nodemon": "^2.0.20",
     "validator": "^13.7.0"
+  },
+  "engines": {
+    "node": "16.x"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6"
   }
 }
