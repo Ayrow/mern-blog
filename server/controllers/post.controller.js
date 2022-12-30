@@ -18,6 +18,10 @@ const deletePost = async (req, res) => {
   res.status(200).json({ msg: 'delete Post' });
 };
 
+const updatePost = async (req, res) => {
+  res.status(200).json({ msg: 'update Post' });
+};
+
 const savePost = async (req, res) => {
   res.status(200).json({ msg: 'save post' });
 };
@@ -39,4 +43,5 @@ export {
   savePost,
   getAllSavedPosts,
   deleteSavedPost,
+  updatePost,
 };

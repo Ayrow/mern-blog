@@ -1,36 +1,5 @@
-const addPost = async (req, res) => {
-  res.status(200).json({ msg: 'addPost' });
-};
-
-const getAllPosts = async (req, res) => {
-  res.status(200).json({ msg: 'getAllPosts' });
-};
-
-const commentPost = async (req, res) => {
-  res.status(200).json({ msg: 'comment Post' });
-};
-
-const getSinglePost = async (req, res) => {
-  res.status(200).json({ msg: 'get Single Post' });
-};
-
-const deletePost = async (req, res) => {
-  res.status(200).json({ msg: 'delete Post' });
-};
-
-const savePost = async (req, res) => {
-  res.status(200).json({ msg: 'save post' });
-};
-
-const getAllSavedPosts = async (req, res) => {
-  res.status(200).json({ msg: 'get all saved posts' });
-};
-
-const deleteSavedPost = async (req, res) => {
-  res.status(200).json({ msg: 'delete saved post' });
-};
-
-export {
+import express from 'express';
+import {
   getAllPosts,
   addPost,
   commentPost,
@@ -39,4 +8,14 @@ export {
   savePost,
   getAllSavedPosts,
   deleteSavedPost,
-};
+} from '../controllers/post.controller';
+const router = express.Router();
+
+router.route('/').get(getAllPosts);
+router.route('/admin').post(addPost);
+router.route('/admin/:id').delete(deletePost);
+router.route('/userPosts/saved').post(savePost).get(getAllSavedPosts);
+router.route('/userPosts/saved/:id').delete(deleteSavedPost);
+router.route('/:id').post(commentPost).get(getSinglePost);
+
+export default router;
