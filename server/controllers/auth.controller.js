@@ -1,13 +1,17 @@
-const registerUser = (req, res) => {
+const registerUser = async (req, res) => {
   res.status(200).json({ msg: 'registerUser' });
 };
 
-const loginUser = (req, res) => {
+const loginUser = async (req, res) => {
   res.status(200).json({ msg: 'loginUser' });
 };
 
-const deleteUser = (req, res) => {
+const updateUser = async (req, res) => {
+  res.status(200).json({ msg: 'updateUser' });
+};
+
+const deleteUser = async (req, res) => {
   res.status(200).json({ msg: 'deleteUser' });
 };
 
-export { registerUser, loginUser, deleteUser };
+export { registerUser, loginUser, deleteUser, updateUser };
