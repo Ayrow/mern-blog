@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import NavDropdown from './NavDropdown';
 
 const Navbar = () => {
   return (
@@ -48,7 +49,7 @@ const Navbar = () => {
             </div>
           </div>
           <div class='relative ml-3'>
-            <div>
+            <div className='relative'>
               <button
                 type='button'
                 class='flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'
@@ -62,6 +63,7 @@ const Navbar = () => {
                   alt=''
                 />
               </button>
+              <NavDropdown />
             </div>
           </div>
         </div>

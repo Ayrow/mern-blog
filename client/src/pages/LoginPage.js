@@ -1,8 +1,8 @@
 const LoginPage = () => {
   return (
-    <section className='h-screen gradient-form bg-gray-200 md:h-screen'>
-      <div className='container py-6 px-6 h-full'>
-        <div className='flex justify-center items-center flex-wrap text-gray-800'>
+    <section className='h-screen w-screen gradient-form bg-gray-200 md:h-screen'>
+      <div className='container py-6 px-6 h-full w-full'>
+        <div className=' flex-wrap text-gray-800 w-full flex justify-center items-center'>
           <div className='xl:w-10/12'>
             <div className='block bg-white shadow-lg rounded-lg'>
               <div className='lg:flex lg:flex-wrap g-0'>
