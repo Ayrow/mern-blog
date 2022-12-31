@@ -1,16 +1,22 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import NavDropdown from './NavDropdown';
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  const ref = useRef();
+
+  const closeDropdown = (e) => {
+    if (isDropdownOpen && !ref.current.contains(e.target)) {
+      setIsDropdownOpen(false);
+    }
   };
 
+  document.addEventListener('click', closeDropdown);
+
   return (
-    <nav class='bg-gray-800'>
+    <nav className='bg-gray-800'>
       <div className='flex items-center justify-between gap-5 p-5'>
         <div>
           <h1 className='text-white uppercase text-2xl'>BLOGGO</h1>
@@ -26,17 +32,17 @@ const Navbar = () => {
         </div>
 
         <div className='flex gap-5 items-center'>
-          <div class='flex justify-center'>
-            <div class='input-group relative flex '>
+          <div className='flex justify-center'>
+            <div className='input-group relative flex '>
               <input
                 type='search'
-                class='form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                className='form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
                 placeholder='Search'
                 aria-label='Search'
                 aria-describedby='button-addon2'
               />
               <button
-                class='btn px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center'
+                className='btn px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center'
                 type='button'
                 id='button-addon2'>
                 <svg
@@ -44,7 +50,7 @@ const Navbar = () => {
                   focusable='false'
                   data-prefix='fas'
                   data-icon='search'
-                  class='w-4'
+                  className='w-4'
                   role='img'
                   xmlns='http://www.w3.org/2000/svg'
                   viewBox='0 0 512 512'>
@@ -55,20 +61,22 @@ const Navbar = () => {
               </button>
             </div>
           </div>
-          <div class='relative ml-3'>
-            <div className='relative'>
+          <div className='relative ml-3'>
+            <div className='relative' ref={ref}>
               <button
                 type='button'
-                class='flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'
-                onClick={toggleDropdown}>
-                <span class='sr-only'>Open user menu</span>
+                className='flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                <span className='sr-only'>Open user menu</span>
                 <img
-                  class='h-8 w-8 rounded-full'
+                  className='h-8 w-8 rounded-full'
                   src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
                   alt=''
                 />
               </button>
-              {isDropdownOpen && <NavDropdown />}
+              {isDropdownOpen && (
+                <NavDropdown setIsDropdownOpen={setIsDropdownOpen} />
+              )}
             </div>
           </div>
         </div>

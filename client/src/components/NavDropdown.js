@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-const NavDropdown = () => {
+const NavDropdown = ({ setIsDropdownOpen }) => {
   return (
     <ul
       className='
@@ -21,8 +21,9 @@ const NavDropdown = () => {
         '
       aria-labelledby='dropdownMenuButton1'>
       <li>
-        <Link
+        <NavLink
           to='/'
+          onClick={() => setIsDropdownOpen(false)}
           className='
               text-sm
               rounded-t-lg
@@ -37,11 +38,12 @@ const NavDropdown = () => {
               hover:bg-gray-100
             '>
           Action
-        </Link>
+        </NavLink>
       </li>
       <li>
-        <Link
+        <NavLink
           to='/'
+          onClick={() => setIsDropdownOpen(false)}
           className='
               text-sm
               py-2
@@ -55,11 +57,12 @@ const NavDropdown = () => {
               hover:bg-gray-100
             '>
           Another action
-        </Link>
+        </NavLink>
       </li>
       <li>
-        <Link
+        <NavLink
           to='/'
+          onClick={() => setIsDropdownOpen(false)}
           className='
               text-sm
               py-2
@@ -74,7 +77,7 @@ const NavDropdown = () => {
               hover:bg-gray-100
             '>
           Something else here
-        </Link>
+        </NavLink>
       </li>
     </ul>
   );
