@@ -1,12 +1,19 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import NavDropdown from './NavDropdown';
 
 const Navbar = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   return (
     <nav class='bg-gray-800'>
       <div className='flex items-center justify-between gap-5 p-5'>
         <div>
-          <p>Here will be a logo</p>
+          <h1 className='text-white uppercase text-2xl'>BLOGGO</h1>
         </div>
 
         <div className='flex gap-10 text-xl'>
@@ -53,9 +60,7 @@ const Navbar = () => {
               <button
                 type='button'
                 class='flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'
-                id='user-menu-button'
-                aria-expanded='false'
-                aria-haspopup='true'>
+                onClick={toggleDropdown}>
                 <span class='sr-only'>Open user menu</span>
                 <img
                   class='h-8 w-8 rounded-full'
@@ -63,7 +68,7 @@ const Navbar = () => {
                   alt=''
                 />
               </button>
-              <NavDropdown />
+              {isDropdownOpen && <NavDropdown />}
             </div>
           </div>
         </div>
