@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const HeaderLandingPage = () => {
   return (
     <header className='relative h-screen w-full'>
-      <div className='text-center bg-gray-50 text-gray-800 h-full flex flex-col justify-center'>
+      <div className='text-center bg-gray-50 text-gray-800 h-full flex flex-col justify-center pb-20'>
         <h1 className='text-5xl font-bold mt-0 mb-6'>
           The only blog you need to follow.
         </h1>
