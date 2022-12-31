@@ -8,7 +8,7 @@ import {
   savePost,
   getAllSavedPosts,
   deleteSavedPost,
-} from '../controllers/post.controller';
+} from '../controllers/post.controller.js';
 const router = express.Router();
 
 router.route('/').get(getAllPosts);
