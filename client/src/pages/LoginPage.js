@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { useUserContext } from '../context/user/user.context';
 
 const LoginPage = () => {
-  const { user } = useUserContext();
+  const { user, setupUser } = useUserContext();
   const [values, setValues] = useState({ username: '', password: '' });
+  const [isMember, setIsMember] = useState(true);
 
   const handleFormInput = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -11,6 +12,12 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const { username, password } = values;
+    if (!username || !password) {
+      alert('there is a missing field');
+    } else {
+      setupUser({ username, password });
+    }
   };
 
   return (
@@ -33,14 +40,18 @@ const LoginPage = () => {
                       </h4>
                     </div>
                     <form onSubmit={handleSubmit}>
-                      <p className='mb-4'>Please login to your account</p>
+                      <p className='mb-4'>
+                        {isMember
+                          ? 'Please login to your account'
+                          : 'Register a new account'}
+                      </p>
                       <div className='mb-4'>
                         <input
                           type='text'
                           name='username'
                           className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
                           placeholder='Username'
-                          value={values.usename}
+                          value={values.username}
                           onChange={handleFormInput}
                         />
                       </div>
@@ -69,20 +80,26 @@ const LoginPage = () => {
                         )
                       `,
                           }}>
-                          Log in
+                          {isMember ? 'sign in' : 'sign up'}
                         </button>
-                        <a className='text-gray-500' href='#!'>
-                          Forgot password?
-                        </a>
+
+                        {isMember && (
+                          <a className='text-gray-500' href='#!'>
+                            Forgot password?
+                          </a>
+                        )}
                       </div>
                       <div className='flex items-center justify-between pb-6'>
-                        <p className='mb-0 mr-2'>Don't have an account?</p>
+                        <p className='mb-0 mr-2'>
+                          {isMember
+                            ? 'No account?'
+                            : 'Already have an account?'}
+                        </p>
                         <button
                           type='button'
                           className='inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out'
-                          data-mdb-ripple='true'
-                          data-mdb-ripple-color='light'>
-                          REGISTER
+                          onClick={() => setIsMember(!isMember)}>
+                          {isMember ? 'REGISTER' : 'LOGIN'}
                         </button>
                       </div>
                     </form>
