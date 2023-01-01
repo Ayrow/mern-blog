@@ -1,17 +1,19 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useReducer } from 'react';
+import userReducer from './user.reducer';
 
 const UserContext = createContext();
 
-const user = localStorage.getItem('user');
-const token = localStorage.getItem('token');
-
 const initialUserState = {
-  user: user ? JSON.parse(user) : null,
-  token: token,
+  user: '',
+  token: '',
 };
 
 const UserProvider = ({ children }) => {
-  return <UserContext.Provider> {children}</UserContext.Provider>;
+  const [state, dispatch] = useReducer(userReducer, initialUserState);
+
+  return (
+    <UserContext.Provider value={{ ...state }}>{children}</UserContext.Provider>
+  );
 };
 
 const useUserContext = () => {

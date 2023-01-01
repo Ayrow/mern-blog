@@ -1,4 +1,18 @@
+import { useState } from 'react';
+import { useUserContext } from '../context/user/user.context';
+
 const LoginPage = () => {
+  const { user } = useUserContext();
+  const [values, setValues] = useState({ username: '', password: '' });
+
+  const handleFormInput = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <section className='h-screen w-screen gradient-form bg-gray-200 md:h-screen'>
       <div className='container py-6 px-6 h-full w-full'>
@@ -18,30 +32,32 @@ const LoginPage = () => {
                         Welcome to BLOGGO
                       </h4>
                     </div>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                       <p className='mb-4'>Please login to your account</p>
                       <div className='mb-4'>
                         <input
                           type='text'
+                          name='username'
                           className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-                          id='exampleFormControlInput1'
                           placeholder='Username'
+                          value={values.usename}
+                          onChange={handleFormInput}
                         />
                       </div>
                       <div className='mb-4'>
                         <input
                           type='password'
                           className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-                          id='exampleFormControlInput1'
                           placeholder='Password'
+                          name='password'
+                          value={values.password}
+                          onChange={handleFormInput}
                         />
                       </div>
                       <div className='text-center pt-1 mb-12 pb-1'>
                         <button
                           className='inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3'
-                          type='button'
-                          data-mdb-ripple='true'
-                          data-mdb-ripple-color='light'
+                          type='submit'
                           style={{
                             background: `
                         linear-gradient(
