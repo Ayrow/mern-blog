@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer } from 'react';
 import axios from 'axios';
 import userReducer from './user.reducer';
+import { SETUP_USER_SUCCESS } from '../actions';
 
 const UserContext = createContext();
 
@@ -55,6 +56,8 @@ const UserProvider = ({ children }) => {
         password,
       });
       const { user, token } = data;
+      dispatch({ type: SETUP_USER_SUCCESS, payload: { user, token } });
+      addUserToLocalStorage({ user, token });
     } catch (error) {
       console.log('error', error);
     }

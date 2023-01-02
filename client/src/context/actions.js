@@ -1,0 +1,1 @@
+export const SETUP_USER_SUCCESS = 'SETUP_USER_SUCCESS';
