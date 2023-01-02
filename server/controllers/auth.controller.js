@@ -19,8 +19,26 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  console.log('req.body', req.body);
-  res.status(200).json({ msg: 'loginUser' });
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    throw Error('All fields are required');
+  }
+
+  const user = await User.findOne({ username }).select('+password');
+  if (!user) {
+    throw Error('Wrong credentials');
+  }
+
+  const isPasswordCorrect = await user.comparePassword(password);
+  if (!isPasswordCorrect) {
+    throw Error('Wrong credentials');
+  }
+
+  const token = await user.createJWT();
+  user.password = undefined;
+
+  res.status(200).json({ user: user.username, token });
 };
 
 const updateUser = async (req, res) => {
