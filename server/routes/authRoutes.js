@@ -8,8 +8,8 @@ import {
 
 const router = express.Router();
 
-router.route('/register').post(registerUser);
-router.route('/login').post(loginUser);
+router.route('/registerUser').post(registerUser);
+router.route('/loginUser').post(loginUser);
 router.route('/updateUser').patch(updateUser);
 router.route('/deleteUser').delete(deleteUser);
 

@@ -16,7 +16,13 @@ const LoginPage = () => {
     if (!username || !password) {
       alert('there is a missing field');
     } else {
-      setupUser({ username, password });
+      if (isMember) {
+        const endpoint = 'loginUser';
+        setupUser({ username, password, endpoint });
+      } else {
+        const endpoint = 'registerUser';
+        setupUser({ username, password, endpoint });
+      }
     }
   };
 
