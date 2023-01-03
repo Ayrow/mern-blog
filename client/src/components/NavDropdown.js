@@ -5,8 +5,6 @@ import { useUserContext } from '../context/user/user.context';
 const NavDropdown = ({ setIsDropdownOpen }) => {
   const { user } = useUserContext();
 
-  useEffect(() => {}, []);
-
   return (
     <ul
       className='

@@ -24,6 +24,7 @@ const LoginPage = () => {
         setupUser({ username, password, endpoint });
       }
     }
+    setValues({ username: '', password: '' });
   };
 
   return (
