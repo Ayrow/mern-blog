@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useUserContext } from '../context/user/user.context';
 
 const NavDropdown = ({ setIsDropdownOpen }) => {
-  const { user } = useUserContext();
+  const { user, logoutUser } = useUserContext();
 
   return (
     <ul
@@ -67,6 +67,7 @@ const NavDropdown = ({ setIsDropdownOpen }) => {
           </li>
           <li>
             <button
+              onClick={logoutUser}
               className='
               text-left
               text-sm
@@ -88,12 +89,14 @@ const NavDropdown = ({ setIsDropdownOpen }) => {
       ) : (
         <>
           <li>
-            <button
+            <NavLink
+              to='/login'
+              onClick={() => setIsDropdownOpen(false)}
               className='
               text-sm
               py-2
               px-4
-              rounded-b-lg
+              rounded-lg
               font-normal
               block
               w-full
@@ -103,25 +106,7 @@ const NavDropdown = ({ setIsDropdownOpen }) => {
               hover:bg-gray-100
             '>
               Login
-            </button>
-          </li>
-          <li>
-            <button
-              className='
-              text-sm
-              py-2
-              px-4
-              rounded-b-lg
-              font-normal
-              block
-              w-full
-              whitespace-nowrap
-              bg-transparent
-              text-gray-700
-              hover:bg-gray-100
-            '>
-              Register
-            </button>
+            </NavLink>
           </li>
         </>
       )}

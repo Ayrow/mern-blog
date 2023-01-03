@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer } from 'react';
 import axios from 'axios';
 import userReducer from './user.reducer';
-import { SETUP_USER_SUCCESS } from '../actions';
+import { SETUP_USER_SUCCESS, LOGOUT_USER_SUCCESS } from '../actions';
 
 const UserContext = createContext();
 
@@ -66,8 +66,13 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  const logoutUser = () => {
+    dispatch({ type: LOGOUT_USER_SUCCESS });
+    removeUserFromLocalStorage();
+  };
+
   return (
-    <UserContext.Provider value={{ ...state, setupUser }}>
+    <UserContext.Provider value={{ ...state, setupUser, logoutUser }}>
       {children}
     </UserContext.Provider>
   );
