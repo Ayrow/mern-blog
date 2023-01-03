@@ -17,7 +17,6 @@ export const authFetch = axios.create({
   baseURL: '/api/v1',
 });
 
-//request
 authFetch.interceptors.request.use(
   (config) => {
     config.headers.Authorization = `Bearer ${initialUserState.token}`;
@@ -28,14 +27,13 @@ authFetch.interceptors.request.use(
   }
 );
 
-//response
 authFetch.interceptors.response.use(
   (response) => {
     return response;
   },
   (error) => {
     if (error.response.status === 401) {
-      // logoutUser
+      console.log(error);
     }
     return Promise.reject(error);
   }

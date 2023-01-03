@@ -7,7 +7,7 @@ const registerUser = async (req, res) => {
     throw Error('All fields are required');
   }
 
-  const usernameTaken = await User.findOne(username);
+  const usernameTaken = await User.findOne({ username });
   if (usernameTaken) {
     throw Error('Username already taken');
   }
@@ -16,6 +16,7 @@ const registerUser = async (req, res) => {
   const token = await user.createJWT();
 
   res.status(200).json({ user: user.username, token });
+  res.status(200).json({ msg: 'test' });
 };
 
 const loginUser = async (req, res) => {

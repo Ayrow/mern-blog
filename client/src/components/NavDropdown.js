@@ -1,6 +1,12 @@
+import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useUserContext } from '../context/user/user.context';
 
 const NavDropdown = ({ setIsDropdownOpen }) => {
+  const { user } = useUserContext();
+
+  useEffect(() => {}, []);
+
   return (
     <ul
       className='
@@ -20,11 +26,13 @@ const NavDropdown = ({ setIsDropdownOpen }) => {
           mt-2
         '
       aria-labelledby='dropdownMenuButton1'>
-      <li>
-        <NavLink
-          to='/'
-          onClick={() => setIsDropdownOpen(false)}
-          className='
+      {user ? (
+        <>
+          <li>
+            <NavLink
+              to='/'
+              onClick={() => setIsDropdownOpen(false)}
+              className='
               text-sm
               rounded-t-lg
               py-2
@@ -37,14 +45,14 @@ const NavDropdown = ({ setIsDropdownOpen }) => {
               text-gray-700
               hover:bg-gray-100
             '>
-          Action
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to='/'
-          onClick={() => setIsDropdownOpen(false)}
-          className='
+              Dashboard
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to='/'
+              onClick={() => setIsDropdownOpen(false)}
+              className='
               text-sm
               py-2
               px-4
@@ -56,14 +64,13 @@ const NavDropdown = ({ setIsDropdownOpen }) => {
               text-gray-700
               hover:bg-gray-100
             '>
-          Another action
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to='/'
-          onClick={() => setIsDropdownOpen(false)}
-          className='
+              Profile
+            </NavLink>
+          </li>
+          <li>
+            <button
+              className='
+              text-left
               text-sm
               py-2
               px-4
@@ -76,9 +83,50 @@ const NavDropdown = ({ setIsDropdownOpen }) => {
               text-gray-700
               hover:bg-gray-100
             '>
-          Something else here
-        </NavLink>
-      </li>
+              Logout
+            </button>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <button
+              className='
+              text-sm
+              py-2
+              px-4
+              rounded-b-lg
+              font-normal
+              block
+              w-full
+              whitespace-nowrap
+              bg-transparent
+              text-gray-700
+              hover:bg-gray-100
+            '>
+              Login
+            </button>
+          </li>
+          <li>
+            <button
+              className='
+              text-sm
+              py-2
+              px-4
+              rounded-b-lg
+              font-normal
+              block
+              w-full
+              whitespace-nowrap
+              bg-transparent
+              text-gray-700
+              hover:bg-gray-100
+            '>
+              Register
+            </button>
+          </li>
+        </>
+      )}
     </ul>
   );
 };
