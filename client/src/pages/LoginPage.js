@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../context/user/user.context';
 
 const LoginPage = () => {
   const { user, setupUser } = useUserContext();
+  const navigate = useNavigate();
   const [values, setValues] = useState({ username: '', password: '' });
   const [isMember, setIsMember] = useState(true);
 
@@ -19,9 +21,11 @@ const LoginPage = () => {
       if (isMember) {
         const endpoint = 'loginUser';
         setupUser({ username, password, endpoint });
+        navigate('/posts');
       } else {
         const endpoint = 'registerUser';
         setupUser({ username, password, endpoint });
+        navigate('/posts');
       }
     }
     setValues({ username: '', password: '' });
