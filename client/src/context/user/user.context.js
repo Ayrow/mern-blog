@@ -47,6 +47,11 @@ const UserProvider = ({ children }) => {
     localStorage.setItem('token', token);
   };
 
+  const removeUserFromLocalStorage = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+  };
+
   const setupUser = async ({ username, password, endpoint }) => {
     try {
       const { data } = await authFetch.post(`/auth/${endpoint}`, {
