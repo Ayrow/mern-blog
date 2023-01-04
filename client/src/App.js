@@ -17,7 +17,9 @@ function App() {
         <Route path='login' element={<LoginPage />} />
         <Route path='posts' element={<PostsPage />} />
 
-        <Route path='/dashboard/' element={<ProtectedRoute></ProtectedRoute>} />
+        <Route
+          path='/dashboard/'
+          element={<ProtectedRoute></ProtectedRoute>}></Route>
 
         <Route path='*' element={<ErrorPage />} />
       </Routes>
