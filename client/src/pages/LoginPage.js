@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../context/user/user.context';
 
@@ -11,6 +11,12 @@ const LoginPage = () => {
   const handleFormInput = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate('/posts');
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();

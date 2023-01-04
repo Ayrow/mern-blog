@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema(
     about: {
       type: String,
     },
-    saved: [
+    savedPosts: [
       {
         type: mongoose.Types.ObjectId,
         ref: 'BlogPost',

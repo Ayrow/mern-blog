@@ -59,6 +59,7 @@ const UserProvider = ({ children }) => {
         password,
       });
       const { user, token } = data;
+      console.log('user', user);
       dispatch({ type: SETUP_USER_SUCCESS, payload: { user, token } });
       addUserToLocalStorage({ user, token });
     } catch (error) {

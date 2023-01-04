@@ -15,8 +15,9 @@ const registerUser = async (req, res) => {
   const user = await User.create({ username, password });
   const token = await user.createJWT();
 
-  res.status(200).json({ user: user.username, token });
-  res.status(200).json({ msg: 'test' });
+  console.log('user', user);
+
+  res.status(200).json({ user, token });
 };
 
 const loginUser = async (req, res) => {
@@ -39,7 +40,7 @@ const loginUser = async (req, res) => {
   const token = await user.createJWT();
   user.password = undefined;
 
-  res.status(200).json({ user: user.username, token });
+  res.status(200).json({ user: user, token });
 };
 
 const updateUser = async (req, res) => {

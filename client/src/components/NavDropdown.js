@@ -27,7 +27,7 @@ const NavDropdown = ({ setIsDropdownOpen }) => {
         <>
           <li>
             <NavLink
-              to='/'
+              to='/dashboard/'
               onClick={() => setIsDropdownOpen(false)}
               className='
               text-sm
@@ -47,7 +47,7 @@ const NavDropdown = ({ setIsDropdownOpen }) => {
           </li>
           <li>
             <NavLink
-              to='/'
+              to='/dashboard/profile'
               onClick={() => setIsDropdownOpen(false)}
               className='
               text-sm
