@@ -1,7 +1,16 @@
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import DashboardMain from './pages/Dashboard/DashboardMain';
-import ProfileSettings from './pages/Dashboard/ProfileSettings';
+
+import {
+  AddPost,
+  AllPosts,
+  DashboardMain,
+  ManageUsers,
+  ProfileSettings,
+  SavedPosts,
+  AllUserComments,
+} from './pages/Dashboard/index';
+
 import {
   LandingPage,
   ErrorPage,
@@ -19,9 +28,19 @@ function App() {
         <Route path='login' element={<LoginPage />} />
         <Route path='posts' element={<PostsPage />} />
 
-        <Route path='/dashboard/' element={<ProtectedRoute />}>
-          <Route index element={<DashboardMain />} />
-          <Route path='profile' element={<ProfileSettings />} />
+        <Route
+          path='/dashboard/'
+          element={
+            <ProtectedRoute>
+              <DashboardMain />
+            </ProtectedRoute>
+          }>
+          <Route path='add-post' element={<AddPost />} />
+          <Route path='all-posts' element={<AllPosts />} />
+          <Route path='manage-users' element={<ManageUsers />} />
+          <Route path='saved-posts' element={<SavedPosts />} />
+          <Route path='my-comments' element={<AllUserComments />} />
+          <Route path='profile-settings' element={<ProfileSettings />} />
         </Route>
 
         <Route path='*' element={<ErrorPage />} />
