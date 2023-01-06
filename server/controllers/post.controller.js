@@ -1,5 +1,12 @@
+import BlogPost from '../models/BlogPost.js';
+
 const addPost = async (req, res) => {
-  res.status(200).json({ msg: 'addPost' });
+  console.log('req.user.userId', req.user.userId);
+
+  res.status(200).json({ msg: 'getAllPosts' });
+  // const post = await BlogPost.create(req.body);
+
+  // res.status(200).json(post);
 };
 
 const getAllPosts = async (req, res) => {

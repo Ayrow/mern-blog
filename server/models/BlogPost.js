@@ -13,7 +13,7 @@ const BlogPostSchema = new mongoose.Schema(
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: 'User',
-      required: [true, 'You need an account to add a Trip'],
+      required: [true, 'You need to be an admin to add a Post'],
     },
   },
   { timestamps: true }

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { usePostsContext } from '../../context/posts/posts.context';
 
 const AddPost = () => {
+  const { addNewPost } = usePostsContext();
   const [values, setValues] = useState({ title: '', postText: '' });
 
   const handleChange = (e) => {
@@ -15,6 +17,7 @@ const AddPost = () => {
     if (!title || !postText) {
       alert('One field is missing');
     } else {
+      addNewPost({ title, postText });
     }
   };
 
