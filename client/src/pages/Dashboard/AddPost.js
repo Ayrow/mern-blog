@@ -9,30 +9,32 @@ const AddPost = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  const handleSavePost = () => {};
+  const handleSavePost = (e) => {
+    e.preventDefault();
+    console.log('values', values);
+  };
 
   return (
     <div className='h-full mx-auto container mt-5 md:w-3/4 shadow-md border-t-2 border-indigo-400 rounded-t pb-10'>
       <div className='bg-white space-y-6 '>
-        <form>
+        <form onSubmit={handleSavePost}>
           <div className='flex flex-col items-center mt-5'>
             <input
               type='text'
               className=' focus:outline-none focus:text-gray-600 ml-4'
               placeholder='Post Title'
-              onChange={handleChange}
               name='title'
               value={values.title}
+              onChange={handleChange}
             />
 
             <ReactQuill
               theme='snow'
               name='postText'
-              // value={travelDetail}
               className=' text-black w-full px-5 py-5'
               placeholder='Write your post'
-              onChange={handleChange}
               value={values.postText}
+              onChange={(value) => setValues({ ...values, postText: value })}
             />
           </div>
 
