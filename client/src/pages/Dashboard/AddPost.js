@@ -10,8 +10,12 @@ const AddPost = () => {
   };
 
   const handleSavePost = (e) => {
+    const { title, postText } = values;
     e.preventDefault();
-    console.log('values', values);
+    if (!title || !postText) {
+      alert('One field is missing');
+    } else {
+    }
   };
 
   return (
