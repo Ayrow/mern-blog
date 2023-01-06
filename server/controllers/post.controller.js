@@ -11,7 +11,6 @@ const addPost = async (req, res) => {
     newBlogPost.createdBy = req.user.userId;
     await BlogPost.create(newBlogPost);
     res.status(200).json(newBlogPost);
-    // res.status(200).json({ msg: 'getAllPosts' });
   }
 };
 

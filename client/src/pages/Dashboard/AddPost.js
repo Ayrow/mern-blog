@@ -18,6 +18,7 @@ const AddPost = () => {
       alert('One field is missing');
     } else {
       addNewPost({ title, postText });
+      setValues({ title: '', postText: '' });
     }
   };
 
