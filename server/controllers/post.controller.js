@@ -1,12 +1,18 @@
 import BlogPost from '../models/BlogPost.js';
+import User from '../models/User.js';
 
 const addPost = async (req, res) => {
-  console.log('req.user.userId', req.user.userId);
+  const newBlogPost = req.body;
 
-  res.status(200).json({ msg: 'getAllPosts' });
-  // const post = await BlogPost.create(req.body);
-
-  // res.status(200).json(post);
+  const user = await User.findById(req.user.userId);
+  if (!user || user.role !== 'admin') {
+    throw Error('You need to be an admin to add a new post');
+  } else {
+    newBlogPost.createdBy = req.user.userId;
+    await BlogPost.create(newBlogPost);
+    res.status(200).json(newBlogPost);
+    // res.status(200).json({ msg: 'getAllPosts' });
+  }
 };
 
 const getAllPosts = async (req, res) => {

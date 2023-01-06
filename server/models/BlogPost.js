@@ -6,7 +6,7 @@ const BlogPostSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Please provide a title'],
     },
-    text: {
+    postText: {
       type: String,
       required: [true, 'Please provide text'],
     },

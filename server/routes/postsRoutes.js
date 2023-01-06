@@ -9,13 +9,19 @@ import {
   getAllSavedPosts,
   deleteSavedPost,
 } from '../controllers/post.controller.js';
+
+import authenticateUser from '../middleware/auth.js';
+
 const router = express.Router();
 
 router.route('/').get(getAllPosts);
-router.route('/admin').post(addPost);
-router.route('/admin/:id').delete(deletePost);
-router.route('/userPosts/saved').post(savePost).get(getAllSavedPosts);
-router.route('/userPosts/saved/:id').delete(deleteSavedPost);
-router.route('/:id').post(commentPost).get(getSinglePost);
+router.route('/admin').post(authenticateUser, addPost);
+router.route('/admin/:id').delete(authenticateUser, deletePost);
+router
+  .route('/userPosts/saved')
+  .post(authenticateUser, savePost)
+  .get(authenticateUser, getAllSavedPosts);
+router.route('/userPosts/saved/:id').delete(authenticateUser, deleteSavedPost);
+router.route('/:id').post(authenticateUser, commentPost).get(getSinglePost);
 
 export default router;
