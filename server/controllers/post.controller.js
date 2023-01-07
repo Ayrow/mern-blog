@@ -15,7 +15,8 @@ const addPost = async (req, res) => {
 };
 
 const getAllPosts = async (req, res) => {
-  res.status(200).json({ msg: 'getAllPosts' });
+  const posts = await BlogPost.find();
+  res.status(200).json(posts);
 };
 
 const commentPost = async (req, res) => {
