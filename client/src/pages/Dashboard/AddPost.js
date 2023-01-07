@@ -5,20 +5,24 @@ import { usePostsContext } from '../../context/posts/posts.context';
 
 const AddPost = () => {
   const { addNewPost } = usePostsContext();
-  const [values, setValues] = useState({ title: '', postText: '' });
+  const [values, setValues] = useState({
+    title: '',
+    postText: '',
+    shortDescription: '',
+  });
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   const handleSavePost = (e) => {
-    const { title, postText } = values;
+    const { title, postText, shortDescription } = values;
     e.preventDefault();
     if (!title || !postText) {
       alert('One field is missing');
     } else {
-      addNewPost({ title, postText });
-      setValues({ title: '', postText: '' });
+      addNewPost({ title, postText, shortDescription });
+      setValues({ title: '', postText: '', shortDescription: '' });
     }
   };
 
@@ -27,14 +31,37 @@ const AddPost = () => {
       <div className='bg-white space-y-6 '>
         <form onSubmit={handleSavePost}>
           <div className='flex flex-col items-center mt-5'>
-            <input
-              type='text'
-              className=' focus:outline-none focus:text-gray-600 ml-4'
-              placeholder='Post Title'
-              name='title'
-              value={values.title}
-              onChange={handleChange}
-            />
+            <div className='w-full flex flex-col gap-10 p-10'>
+              <div className='grid grid-cols-2'>
+                <label className='font-semibold'>Post title</label>
+                <input
+                  type='text'
+                  className=' focus:outline-none focus:text-gray-600'
+                  placeholder='Post Title'
+                  name='title'
+                  value={values.title}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className='grid grid-cols-2'>
+                <label className='font-semibold'>
+                  Short Description (optional)
+                </label>
+                <div>
+                  <textarea
+                    name='shortDescription'
+                    placeholder='Enter a short description'
+                    className='focus:outline-none focus:text-gray-600 w-full'
+                    value={values.shortDescription}
+                    onChange={handleChange}
+                  />
+                  <p className='text-sm'>
+                    {values.shortDescription.length} / 150 characters
+                  </p>
+                </div>
+              </div>
+            </div>
 
             <ReactQuill
               theme='snow'
