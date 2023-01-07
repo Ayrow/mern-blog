@@ -24,7 +24,6 @@ const PostsProvider = ({ children }) => {
     } catch (error) {
       console.log('error', error);
     }
-    console.log('state.posts', state.posts);
   };
 
   return (
