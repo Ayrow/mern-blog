@@ -14,11 +14,12 @@ const PostsContext = createContext();
 const PostsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(postsReducer, initialPostsState);
 
-  const addNewPost = async ({ title, postText }) => {
+  const addNewPost = async ({ title, postText, shortDescription }) => {
     try {
       const { data } = await authFetch.post('/posts/admin', {
         title,
         postText,
+        shortDescription,
       });
       dispatch({ type: CREATE_POST_SUCCESS, payload: data });
     } catch (error) {
