@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer } from 'react';
 import postsReducer from './posts.reducer';
 import { authFetch } from '../user/user.context';
-import { CREATE_POST_SUCCESS } from '../actions';
+import { CREATE_POST_SUCCESS, GET_ALL_POSTS_SUCCESS } from '../actions';
 
 const initialPostsState = {
   posts: [],
@@ -26,8 +26,17 @@ const PostsProvider = ({ children }) => {
     }
   };
 
+  const getAllPosts = async () => {
+    try {
+      const { data } = await authFetch.get('/posts');
+      dispatch({ type: GET_ALL_POSTS_SUCCESS, payload: data });
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
   return (
-    <PostsContext.Provider value={{ ...state, addNewPost }}>
+    <PostsContext.Provider value={{ ...state, addNewPost, getAllPosts }}>
       {children}
     </PostsContext.Provider>
   );
