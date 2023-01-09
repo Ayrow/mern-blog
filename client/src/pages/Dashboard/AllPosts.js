@@ -4,6 +4,7 @@ import DashboardSingleItem from '../../components/DashboardSingleItem';
 
 const AllPosts = () => {
   const { getAllPosts, posts } = usePostsContext();
+  const isPost = true;
 
   useEffect(() => {
     getAllPosts();
@@ -15,7 +16,14 @@ const AllPosts = () => {
       <div className='flex flex-col gap-5'>
         {posts.map((item) => {
           const { title, _id } = item;
-          return <DashboardSingleItem key={_id} id={_id} name={title} />;
+          return (
+            <DashboardSingleItem
+              key={_id}
+              id={_id}
+              name={title}
+              isPost={isPost}
+            />
+          );
         })}
       </div>
     </div>
