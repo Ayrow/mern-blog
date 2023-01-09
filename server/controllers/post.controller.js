@@ -19,12 +19,12 @@ const getAllPosts = async (req, res) => {
   res.status(200).json(posts);
 };
 
-const commentPost = async (req, res) => {
-  res.status(200).json({ msg: 'comment Post' });
-};
-
 const getSinglePost = async (req, res) => {
   res.status(200).json({ msg: 'get Single Post' });
+};
+
+const commentPost = async (req, res) => {
+  res.status(200).json({ msg: 'comment Post' });
 };
 
 const deletePost = async (req, res) => {
