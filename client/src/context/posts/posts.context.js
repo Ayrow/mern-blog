@@ -30,6 +30,7 @@ const PostsProvider = ({ children }) => {
   const getAllPosts = async () => {
     try {
       const { data } = await authFetch.get('/posts');
+      console.log('data', data);
       dispatch({ type: GET_ALL_POSTS_SUCCESS, payload: data });
     } catch (error) {
       console.log('error', error);

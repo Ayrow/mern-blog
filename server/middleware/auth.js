@@ -14,7 +14,8 @@ const auth = async (req, res, next) => {
     req.user = { userId: payload.userId };
     next();
   } catch (error) {
-    throw Error('Authentication invalid');
+    console.log('error', error);
+    throw Error('Authentication invalid 2');
   }
 };
 

@@ -1,4 +1,8 @@
-import { SETUP_USER_SUCCESS, LOGOUT_USER_SUCCESS } from '../actions';
+import {
+  SETUP_USER_SUCCESS,
+  LOGOUT_USER_SUCCESS,
+  FETCH_ALL_USERS_SUCCESS,
+} from '../actions';
 
 const userReducer = (state, action) => {
   switch (action.type) {
@@ -13,6 +17,11 @@ const userReducer = (state, action) => {
         ...state,
         user: null,
         token: null,
+      };
+    case FETCH_ALL_USERS_SUCCESS:
+      return {
+        ...state,
+        users: action.payload,
       };
     default:
       throw new Error(`There is no action: ${action.type}`);

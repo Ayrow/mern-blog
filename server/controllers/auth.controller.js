@@ -15,8 +15,6 @@ const registerUser = async (req, res) => {
   const user = await User.create({ username, password });
   const token = await user.createJWT();
 
-  console.log('user', user);
-
   res.status(200).json({ user, token });
 };
 
@@ -52,8 +50,14 @@ const deleteUser = async (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
-  const users = await User.find();
-  res.status(200).json({ users });
+  const { userRole } = req.query;
+
+  if (userRole !== 'admin') {
+    throw Error('You cannont access users');
+  } else {
+    const users = await User.find();
+    res.status(200).json(users);
+  }
 };
 
 export { registerUser, loginUser, deleteUser, updateUser, getAllUsers };
