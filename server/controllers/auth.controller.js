@@ -51,4 +51,9 @@ const deleteUser = async (req, res) => {
   res.status(200).json({ msg: 'deleteUser' });
 };
 
-export { registerUser, loginUser, deleteUser, updateUser };
+const getAllUsers = async (req, res) => {
+  const users = await User.find();
+  res.status(200).json({ users });
+};
+
+export { registerUser, loginUser, deleteUser, updateUser, getAllUsers };
