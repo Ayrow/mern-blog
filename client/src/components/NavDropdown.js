@@ -47,7 +47,7 @@ const NavDropdown = ({ setIsDropdownOpen }) => {
           </li>
           <li>
             <NavLink
-              to='/dashboard/profile'
+              to='dashboard/profile-settings'
               onClick={() => setIsDropdownOpen(false)}
               className='
               text-sm
