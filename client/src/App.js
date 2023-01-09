@@ -18,6 +18,7 @@ import {
   LoginPage,
   ProtectedRoute,
 } from './pages/index';
+import SinglePostPage from './pages/SinglePostPage';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path='/' element={<LandingPage />} />
         <Route path='login' element={<LoginPage />} />
         <Route path='posts' element={<PostsPage />} />
+        <Route path={`posts/:id`} element={<SinglePostPage />} />
 
         <Route
           path='/dashboard/'
