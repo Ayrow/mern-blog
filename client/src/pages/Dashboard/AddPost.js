@@ -27,9 +27,9 @@ const AddPost = () => {
   };
 
   return (
-    <div className='h-full mx-auto container mt-5 md:w-3/4 shadow-md border-t-2 border-indigo-400 rounded-t pb-10'>
-      <div className='bg-white space-y-6 '>
-        <form onSubmit={handleSavePost}>
+    <div className='mx-auto container md:w-3/4 shadow-md border-t-2 border-indigo-400 rounded-t pb-10'>
+      <div className='bg-white space-y-6'>
+        <form className='pb-10 h-full' onSubmit={handleSavePost}>
           <div className='flex flex-col items-center mt-5'>
             <div className='w-full flex flex-col gap-10 p-10'>
               <div className='grid grid-cols-2'>
