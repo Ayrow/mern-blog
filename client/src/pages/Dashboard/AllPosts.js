@@ -11,7 +11,7 @@ const AllPosts = () => {
   }, []);
 
   return (
-    <div className='m-5 w-full'>
+    <div className='mx-auto container mt-5 md:w-3/4 shadow-md border-t-2 border-indigo-400 rounded-t p-10'>
       <div>Filter and Sort Container</div>
       <div className='flex flex-col gap-5'>
         {posts.map((item) => {
