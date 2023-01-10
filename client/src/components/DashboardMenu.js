@@ -2,8 +2,8 @@ import { NavLink } from 'react-router-dom';
 
 const DashboardMenu = ({ links }) => {
   return (
-    <div className=' relative w-1/6 bg-gray-800 h-full text-white px-5 pt-10'>
-      <div className='fixed flex flex-col items-center gap-10'>
+    <div className=' w-1/6 bg-gray-800 h-full text-white px-5 pt-10'>
+      <div className='flex flex-col items-center gap-10'>
         {links.map((link) => {
           const { id, text, path } = link;
           return (

@@ -5,7 +5,6 @@ import { useUserContext } from '../../context/user/user.context';
 
 const ManageUsers = () => {
   const { users, fetchAllUsers } = useUserContext();
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchAllUsers();
