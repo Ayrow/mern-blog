@@ -1,11 +1,10 @@
 import { NavLink } from 'react-router-dom';
-import { adminLinks } from '../utils/menuLinks';
 
-const DashboardMenuAdmin = () => {
+const DashboardMenu = ({ links }) => {
   return (
     <div className=' relative w-1/6 bg-gray-800 h-full text-white px-5 pt-10'>
       <div className='fixed flex flex-col items-center gap-10'>
-        {adminLinks.map((link) => {
+        {links.map((link) => {
           const { id, text, path } = link;
           return (
             <NavLink
@@ -25,4 +24,4 @@ const DashboardMenuAdmin = () => {
   );
 };
 
-export default DashboardMenuAdmin;
+export default DashboardMenu;

@@ -1,14 +1,18 @@
 import { Outlet } from 'react-router-dom';
-import DashboardMenuAdmin from '../../components/DashboardMenuAdmin';
-import DashboardMenuUser from '../../components/DashboardMenuUser';
+import DashboardMenu from '../../components/DashboardMenu';
 import { useUserContext } from '../../context/user/user.context';
+import { adminLinks, userLinks } from '../../utils/menuLinks';
 
 const DashboardMain = () => {
   const { user } = useUserContext();
 
   return (
     <div className='h-screen w-screen flex'>
-      {user.role === 'admin' ? <DashboardMenuAdmin /> : <DashboardMenuUser />}
+      {user.role === 'admin' ? (
+        <DashboardMenu links={adminLinks} />
+      ) : (
+        <DashboardMenu links={userLinks} />
+      )}
       <div className='flex flex-col w-full h-full'>
         <h3 className='text-2xl text-black text-center pt-10'>
           Welcome to your dashboard, {user.username}!
