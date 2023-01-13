@@ -86,9 +86,26 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  const updateUser = async () => {
+    try {
+    } catch (error) {}
+  };
+
+  const deleteUser = async () => {
+    try {
+    } catch (error) {}
+  };
+
   return (
     <UserContext.Provider
-      value={{ ...state, setupUser, logoutUser, fetchAllUsers }}>
+      value={{
+        ...state,
+        setupUser,
+        logoutUser,
+        fetchAllUsers,
+        updateUser,
+        deleteUser,
+      }}>
       {children}
     </UserContext.Provider>
   );

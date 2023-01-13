@@ -2,24 +2,19 @@ import jwt from 'jsonwebtoken';
 
 const auth = async (req, res, next) => {
   const authHeader = req.headers.authorization;
-  console.log('req.headers', req.headers);
 
   if (!authHeader || !authHeader.startsWith('Bearer')) {
     throw Error('Authentication invalid');
   }
 
-  console.log('authHeader', authHeader);
-
   const token = authHeader.split(' ')[1];
-  console.log('token', token);
 
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.user = { userId: payload.userId };
     next();
   } catch (error) {
-    console.log('error', error);
-    throw Error('Authentication invalid 2');
+    throw Error('Authentication invalid');
   }
 };
 

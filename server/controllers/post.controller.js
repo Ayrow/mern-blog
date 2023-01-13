@@ -20,7 +20,9 @@ const getAllPosts = async (req, res) => {
 };
 
 const getSinglePost = async (req, res) => {
-  res.status(200).json({ msg: 'get Single Post' });
+  const { id } = req.params;
+  const post = await BlogPost.findOne({ _id: id });
+  res.status(200).json({ post });
 };
 
 const commentPost = async (req, res) => {
