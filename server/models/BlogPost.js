@@ -8,7 +8,7 @@ const BlogPostSchema = new mongoose.Schema(
     },
     shortDescription: {
       type: String,
-      minlength: [20, 'Short description must be more than 20 characters'],
+      minlength: [3, 'Short description must be more than 3 characters'],
       maxlength: [150, 'Short description must be less than 150 characters'],
       default: 'No short description has been provided.',
     },

@@ -50,10 +50,9 @@ const deleteUser = async (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
-  const { userRole } = req.query;
-
-  if (userRole !== 'admin') {
-    throw Error('You cannont access users');
+  const user = await User.findById(req.user.userId);
+  if (!user || user.role !== 'admin') {
+    throw Error('You cannot manage users');
   } else {
     const users = await User.find();
     res.status(200).json(users);

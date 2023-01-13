@@ -24,6 +24,7 @@ export const authFetch = axios.create({
 
 authFetch.interceptors.request.use(
   (config) => {
+    console.log('initialUserState.token', initialUserState.token);
     config.headers.Authorization = `Bearer ${initialUserState.token}`;
     return config;
   },
@@ -46,28 +47,6 @@ authFetch.interceptors.response.use(
 
 const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(userReducer, initialUserState);
-
-  authFetch.interceptors.request.use(
-    (config) => {
-      config.headers.Authorization = `Bearer ${initialUserState.token}`;
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
-
-  authFetch.interceptors.response.use(
-    (response) => {
-      return response;
-    },
-    (error) => {
-      if (error.response.status === 401) {
-        logoutUser();
-      }
-      return Promise.reject(error);
-    }
-  );
 
   const addUserToLocalStorage = ({ user, token }) => {
     localStorage.setItem('user', JSON.stringify(user));
@@ -99,13 +78,11 @@ const UserProvider = ({ children }) => {
   };
 
   const fetchAllUsers = async () => {
-    const { role } = state.user;
-    console.log('role', role);
     try {
-      const { data } = await authFetch.get(`/auth/users?userRole=${role}`);
+      const { data } = await authFetch.get(`/auth/users`);
       dispatch({ type: FETCH_ALL_USERS_SUCCESS, payload: data });
     } catch (error) {
-      console.log('error', error);
+      logoutUser();
     }
   };
 
