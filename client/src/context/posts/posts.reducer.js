@@ -19,7 +19,7 @@ const postsReducer = (state, action) => {
     case GET_SINGLE_POST_SUCCESS:
       return {
         ...state,
-        post: action.payload,
+        singlePost: action.payload,
       };
     default:
       throw new Error(`There is no action: ${action.type}`);
