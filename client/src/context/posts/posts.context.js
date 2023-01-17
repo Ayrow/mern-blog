@@ -53,7 +53,7 @@ const PostsProvider = ({ children }) => {
 
   const deletePost = async (id) => {
     try {
-      await authFetch.delete(`/posts/${id}`);
+      await authFetch.delete(`/posts/admin/${id}`);
       dispatch({ type: DELETE_POST_SUCCESS, payload: id });
     } catch (error) {
       console.log('error', error);
