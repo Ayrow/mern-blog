@@ -3,6 +3,7 @@ import postsReducer from './posts.reducer';
 import { authFetch } from '../user/user.context';
 import {
   CREATE_POST_SUCCESS,
+  DELETE_POST_SUCCESS,
   GET_ALL_POSTS_SUCCESS,
   GET_SINGLE_POST_SUCCESS,
 } from '../actions';
@@ -50,9 +51,18 @@ const PostsProvider = ({ children }) => {
     }
   };
 
+  const deletePost = async (id) => {
+    try {
+      await authFetch.delete(`/posts/${id}`);
+      dispatch({ type: DELETE_POST_SUCCESS, payload: id });
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
   return (
     <PostsContext.Provider
-      value={{ ...state, addNewPost, getAllPosts, getSinglePost }}>
+      value={{ ...state, addNewPost, getAllPosts, getSinglePost, deletePost }}>
       {children}
     </PostsContext.Provider>
   );

@@ -3,7 +3,7 @@ import { usePostsContext } from '../../context/posts/posts.context';
 import DashboardSingleItem from '../../components/DashboardSingleItem';
 
 const AllPosts = () => {
-  const { getAllPosts, posts } = usePostsContext();
+  const { getAllPosts, posts, deletePost } = usePostsContext();
   const isPost = true;
 
   useEffect(() => {
@@ -22,6 +22,7 @@ const AllPosts = () => {
               id={_id}
               name={title}
               isPost={isPost}
+              deleteItem={deletePost}
             />
           );
         })}
