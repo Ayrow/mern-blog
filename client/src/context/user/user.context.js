@@ -27,7 +27,6 @@ const UserProvider = ({ children }) => {
 
   authFetch.interceptors.request.use(
     (config) => {
-      console.log('initialUserState.token', state.token);
       config.headers.Authorization = `Bearer ${state.token}`;
       return config;
     },
@@ -105,6 +104,7 @@ const UserProvider = ({ children }) => {
         fetchAllUsers,
         updateUser,
         deleteUser,
+        authFetch,
       }}>
       {children}
     </UserContext.Provider>

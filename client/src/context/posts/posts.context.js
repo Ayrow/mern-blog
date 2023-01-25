@@ -1,5 +1,6 @@
 import { createContext, useContext, useReducer } from 'react';
 import postsReducer from './posts.reducer';
+import axios from 'axios';
 
 import {
   CREATE_POST_SUCCESS,
@@ -7,7 +8,6 @@ import {
   GET_ALL_POSTS_SUCCESS,
   GET_SINGLE_POST_SUCCESS,
 } from '../actions';
-import axios from 'axios';
 import { useUserContext } from '../user/user.context';
 
 const initialPostsState = {
@@ -29,7 +29,6 @@ const PostsProvider = ({ children }) => {
 
   authFetch.interceptors.request.use(
     (config) => {
-      console.log('initialUserState.token', token);
       config.headers.Authorization = `Bearer ${token}`;
       return config;
     },
