@@ -1,52 +1,52 @@
 import { createContext, useContext, useReducer } from 'react';
-import axios from 'axios';
 import userReducer from './user.reducer';
 import {
   SETUP_USER_SUCCESS,
   LOGOUT_USER_SUCCESS,
   FETCH_ALL_USERS_SUCCESS,
 } from '../actions';
+import axios from 'axios';
 
 const UserContext = createContext();
 
 const user = localStorage.getItem('user');
 const token = localStorage.getItem('token');
 
-const initialUserState = {
+export const initialUserState = {
   user: user ? JSON.parse(user) : null,
   token: token,
   users: [],
 };
 
-export const authFetch = axios.create({
-  baseURL: '/api/v1',
-});
-
-authFetch.interceptors.request.use(
-  (config) => {
-    console.log('initialUserState.token', initialUserState.token);
-    config.headers.Authorization = `Bearer ${initialUserState.token}`;
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
-authFetch.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error) => {
-    if (error.response.status === 401) {
-      console.log('error', error);
-    }
-    return Promise.reject(error);
-  }
-);
-
 const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(userReducer, initialUserState);
+
+  const authFetch = axios.create({
+    baseURL: '/api/v1',
+  });
+
+  authFetch.interceptors.request.use(
+    (config) => {
+      console.log('initialUserState.token', state.token);
+      config.headers.Authorization = `Bearer ${state.token}`;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  authFetch.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error.response.status === 401) {
+        console.log('error', error);
+      }
+      return Promise.reject(error);
+    }
+  );
 
   const addUserToLocalStorage = ({ user, token }) => {
     localStorage.setItem('user', JSON.stringify(user));

@@ -1,12 +1,14 @@
 import { createContext, useContext, useReducer } from 'react';
 import postsReducer from './posts.reducer';
-import { authFetch } from '../user/user.context';
+
 import {
   CREATE_POST_SUCCESS,
   DELETE_POST_SUCCESS,
   GET_ALL_POSTS_SUCCESS,
   GET_SINGLE_POST_SUCCESS,
 } from '../actions';
+import axios from 'axios';
+import { useUserContext } from '../user/user.context';
 
 const initialPostsState = {
   posts: [],
@@ -19,6 +21,34 @@ const PostsContext = createContext();
 
 const PostsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(postsReducer, initialPostsState);
+  const { token } = useUserContext();
+
+  const authFetch = axios.create({
+    baseURL: '/api/v1',
+  });
+
+  authFetch.interceptors.request.use(
+    (config) => {
+      console.log('initialUserState.token', token);
+      config.headers.Authorization = `Bearer ${token}`;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  authFetch.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error.response.status === 401) {
+        console.log('error', error);
+      }
+      return Promise.reject(error);
+    }
+  );
 
   const addNewPost = async ({ title, postText, shortDescription }) => {
     try {
