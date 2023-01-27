@@ -26,7 +26,7 @@ const LoginPage = () => {
     e.preventDefault();
     const { username, password, email } = values;
 
-    if (!username || !email || !password) {
+    if (!email || !password) {
       alert('there is a missing field');
     } else {
       if (isMember) {
@@ -34,9 +34,13 @@ const LoginPage = () => {
         setupUser({ username, email, password, endpoint });
         navigate('/posts');
       } else {
-        const endpoint = 'registerUser';
-        setupUser({ username, email, password, endpoint });
-        navigate('/posts');
+        if (!username) {
+          alert('please enter a unique username');
+        } else {
+          const endpoint = 'registerUser';
+          setupUser({ username, email, password, endpoint });
+          navigate('/posts');
+        }
       }
     }
     setValues({ username: '', password: '', email: '' });

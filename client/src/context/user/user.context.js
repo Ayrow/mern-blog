@@ -57,10 +57,11 @@ const UserProvider = ({ children }) => {
     localStorage.removeItem('token');
   };
 
-  const setupUser = async ({ username, password, endpoint }) => {
+  const setupUser = async ({ username, password, email, endpoint }) => {
     try {
       const { data } = await authFetch.post(`/auth/${endpoint}`, {
         username,
+        email,
         password,
       });
       const { user, token } = data;
@@ -85,7 +86,7 @@ const UserProvider = ({ children }) => {
     }
   };
 
-  const updateUser = async () => {
+  const updateUser = async (id) => {
     try {
     } catch (error) {}
   };

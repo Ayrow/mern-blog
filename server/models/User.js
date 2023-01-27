@@ -34,7 +34,6 @@ const UserSchema = new mongoose.Schema(
       {
         type: mongoose.Types.ObjectId,
         ref: 'BlogPost',
-        unique: true,
       },
     ],
     password: {

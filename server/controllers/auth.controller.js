@@ -1,9 +1,9 @@
 import User from '../models/User.js';
 
 const registerUser = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, email } = req.body;
 
-  if (!username || !password) {
+  if (!username || !password || !email) {
     throw Error('All fields are required');
   }
 
@@ -12,20 +12,25 @@ const registerUser = async (req, res) => {
     throw Error('Username already taken');
   }
 
-  const user = await User.create({ username, password });
+  const user = await User.create({
+    username,
+    email,
+    password,
+  });
+
   const token = await user.createJWT();
 
   res.status(200).json({ user, token });
 };
 
 const loginUser = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  if (!username || !password) {
+  if (!email || !password) {
     throw Error('All fields are required');
   }
 
-  const user = await User.findOne({ username }).select('+password');
+  const user = await User.findOne({ email }).select('+password');
   if (!user) {
     throw Error('Wrong credentials');
   }
