@@ -5,7 +5,11 @@ import { useUserContext } from '../context/user/user.context';
 const LoginPage = () => {
   const { user, setupUser } = useUserContext();
   const navigate = useNavigate();
-  const [values, setValues] = useState({ username: '', password: '' });
+  const [values, setValues] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
   const [isMember, setIsMember] = useState(true);
 
   const handleFormInput = (e) => {
@@ -20,21 +24,22 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { username, password } = values;
-    if (!username || !password) {
+    const { username, password, email } = values;
+
+    if (!username || !email || !password) {
       alert('there is a missing field');
     } else {
       if (isMember) {
         const endpoint = 'loginUser';
-        setupUser({ username, password, endpoint });
+        setupUser({ username, email, password, endpoint });
         navigate('/posts');
       } else {
         const endpoint = 'registerUser';
-        setupUser({ username, password, endpoint });
+        setupUser({ username, email, password, endpoint });
         navigate('/posts');
       }
     }
-    setValues({ username: '', password: '' });
+    setValues({ username: '', password: '', email: '' });
   };
 
   return (
@@ -62,13 +67,27 @@ const LoginPage = () => {
                           ? 'Please login to your account'
                           : 'Register a new account'}
                       </p>
+
+                      {!isMember && (
+                        <div className='mb-4'>
+                          <input
+                            type='text'
+                            name='username'
+                            className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                            placeholder='Username'
+                            value={values.username}
+                            onChange={handleFormInput}
+                          />
+                        </div>
+                      )}
+
                       <div className='mb-4'>
                         <input
                           type='text'
-                          name='username'
+                          name='email'
                           className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-                          placeholder='Username'
-                          value={values.username}
+                          placeholder='Email'
+                          value={values.email}
                           onChange={handleFormInput}
                         />
                       </div>
