@@ -15,7 +15,7 @@ const AllPosts = () => {
       <div>Filter and Sort Container</div>
       <div className='flex flex-col gap-5'>
         {posts.map((item) => {
-          const { title, _id } = item;
+          const { title, _id, shortDescription, postText } = item;
           return (
             <DashboardSingleItem
               key={_id}
@@ -23,6 +23,8 @@ const AllPosts = () => {
               name={title}
               isPost={isPost}
               deleteItem={deletePost}
+              shortDescription={shortDescription}
+              postText={postText}
             />
           );
         })}

@@ -6,13 +6,13 @@ const appReducer = (state, action) => {
       return {
         ...state,
         isEditing: true,
-        editID: action.payload,
+        itemID: action.payload,
       };
     case EDIT_ITEM_CANCEL:
       return {
         ...state,
         isEditing: false,
-        editID: null,
+        itemID: null,
       };
     default:
       throw new Error(`There is no action: ${action.type}`);

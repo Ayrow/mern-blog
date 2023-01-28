@@ -3,12 +3,18 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { usePostsContext } from '../../context/posts/posts.context';
 
-const AddPost = () => {
+const AddPost = ({
+  isEditing,
+  oldPostTitle,
+  oldShortDescription,
+  oldPostText,
+  cancelEditItem,
+}) => {
   const { addNewPost } = usePostsContext();
   const [values, setValues] = useState({
-    title: '',
-    postText: '',
-    shortDescription: '',
+    title: oldPostTitle || '',
+    postText: oldPostText || '',
+    shortDescription: oldShortDescription || '',
   });
 
   const handleChange = (e) => {
@@ -20,6 +26,8 @@ const AddPost = () => {
     e.preventDefault();
     if (!title || !postText) {
       alert('One field is missing');
+    } else if (isEditing) {
+      setValues({ title: '', postText: '', shortDescription: '' });
     } else {
       addNewPost({ title, postText, shortDescription });
       setValues({ title: '', postText: '', shortDescription: '' });
@@ -74,9 +82,16 @@ const AddPost = () => {
           </div>
 
           <div className='flex justify-end pr-10 pt-5'>
-            <button className=' bg-green-700 text-white px-3 py-1 rounded-lg text-lg uppercase'>
-              Save
-            </button>
+            <div className='flex gap-5'>
+              <button className=' bg-green-700 hover:bg-green-500 text-white px-3 py-1 rounded-lg text-lg uppercase'>
+                Save
+              </button>
+              <button
+                className=' bg-red-700 hover:bg-red-500 px-4 py-1 rounded-lg text-white'
+                onClick={cancelEditItem}>
+                Cancel
+              </button>
+            </div>
           </div>
         </form>
       </div>

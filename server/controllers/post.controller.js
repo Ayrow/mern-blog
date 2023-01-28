@@ -31,7 +31,7 @@ const commentPost = async (req, res) => {
 
 const deletePost = async (req, res) => {
   const { id } = req.params;
-  await BlogPost.remove({ _id: id });
+  await BlogPost.deleteOne({ _id: id });
   res.status(200).json({ msg: 'delete Post' });
 };
 

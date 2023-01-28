@@ -7,7 +7,7 @@ const AppContext = createContext();
 const initialAppState = {
   isAlertopen: false,
   isEditing: false,
-  editID: null,
+  itemID: null,
 };
 
 const AppProvider = ({ children }) => {

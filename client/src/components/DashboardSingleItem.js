@@ -1,40 +1,101 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/app/app.context';
+import { useUserContext } from '../context/user/user.context';
+import { AddPost } from '../pages/Dashboard/index';
 
-const DashboardSingleItem = ({ name, id, isPost, role, deleteItem }) => {
+const DashboardSingleItem = ({
+  name,
+  id,
+  isPost,
+  role,
+  deleteItem,
+  shortDescription,
+  postText,
+}) => {
   const navigate = useNavigate();
-  const { editItem, isEditing } = useAppContext();
+  const { editItem, isEditing, itemID, cancelEditItem } = useAppContext();
+  const { userRoles, user } = useUserContext();
+  const [roleValue, setRoleValue] = useState('');
+
+  const saveItemChanges = () => {
+    if (isPost) {
+    } else {
+      console.log('roleValue', roleValue);
+    }
+  };
 
   return (
-    <div className='mt-5 border grid grid-cols-3 p-5'>
-      <h3 className=' font-semibold text-center'>{name}</h3>
-      <p className='text-lg text-center'>{role}</p>
-      <div className='flex gap-5 justify-center'>
-        {isPost && (
-          <button
-            onClick={() => navigate(`/posts/${id}`)}
-            className=' bg-blue-400 hover:bg-blue-300 px-4 py-1 rounded-lg'>
-            See
-          </button>
+    <div className='w-full'>
+      <div className='mt-5 border grid grid-cols-3 p-5'>
+        <h3 className=' font-semibold text-center'>{name}</h3>
+        {isEditing && !isPost && itemID === id ? (
+          <select
+            name='role'
+            defaultValue={user.role}
+            onChange={(e) => setRoleValue(e.target.value)}
+            className='block w-52 py-2 px-3 rounded-md capitalize
+                shadow-sm focus:outline-none focus:ring-primary-500
+                focus:border-primary-500 border bg-white border-black text-black'>
+            {userRoles.map((item, index) => {
+              return (
+                <option key={index} value={item} className=''>
+                  {item}
+                </option>
+              );
+            })}
+          </select>
+        ) : (
+          <p className='text-lg text-center'>{role}</p>
         )}
 
-        {isEditing ? (
-          'Editing'
-        ) : (
-          <div className='flex gap-5 justify-center'>
+        <div className='flex gap-5 justify-center'>
+          {isPost && (
             <button
-              className=' bg-green-400 hover:bg-green-300 px-4 py-1 rounded-lg'
-              onClick={() => editItem(id)}>
-              Edit
+              onClick={() => navigate(`/posts/${id}`)}
+              className=' bg-blue-400 hover:bg-blue-300 px-4 py-1 rounded-lg'>
+              See
             </button>
-            <button
-              className=' bg-red-400 hover:bg-red-300 px-4 py-1 rounded-lg'
-              onClick={() => deleteItem(id)}>
-              Delete
-            </button>
-          </div>
-        )}
+          )}
+
+          {isEditing && id === itemID && !isPost ? (
+            <div className='flex gap-5 justify-center'>
+              <button className=' bg-green-400 hover:bg-green-300 px-4 py-1 rounded-lg'>
+                Save
+              </button>
+              <button
+                className=' bg-red-400 hover:bg-red-300 px-4 py-1 rounded-lg'
+                onClick={cancelEditItem}>
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <div className='flex gap-5 justify-center'>
+              <button
+                className=' bg-green-400 hover:bg-green-300 px-4 py-1 rounded-lg'
+                onClick={() => editItem(id)}>
+                Edit
+              </button>
+              <button
+                className=' bg-red-400 hover:bg-red-300 px-4 py-1 rounded-lg'
+                onClick={() => deleteItem(id)}>
+                Delete
+              </button>
+            </div>
+          )}
+        </div>
       </div>
+      {isPost && isEditing && itemID === id && (
+        <div className='w-full'>
+          <AddPost
+            isEditing={isEditing}
+            oldPostTitle={name}
+            oldShortDescription={shortDescription}
+            oldPostText={postText}
+            cancelEditItem={cancelEditItem}
+          />
+        </div>
+      )}
     </div>
   );
 };
