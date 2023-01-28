@@ -14,25 +14,35 @@ const AddPost = ({
   const { addNewPost, updatePost } = usePostsContext();
   const [values, setValues] = useState({
     title: oldPostTitle || '',
-    postText: oldPostText || '',
     shortDescription: oldShortDescription || '',
   });
+  const [postText, setPostText] = useState(oldPostText || '');
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   const handleSavePost = (e) => {
-    const { title, postText, shortDescription } = values;
+    const { title, shortDescription } = values;
     e.preventDefault();
-    if (!title || !postText) {
+    if (!title || !postText || postText === '<p><br></p>') {
       alert('One field is missing');
     } else if (isEditing) {
       updatePost({ title, postText, shortDescription, itemID });
       cancelEditItem();
     } else {
-      addNewPost({ title, postText, shortDescription });
-      setValues({ title: '', postText: '', shortDescription: '' });
+      // addNewPost({ title, postText, shortDescription });
+      setValues({ title: '', shortDescription: '' });
+      setPostText('');
+    }
+  };
+
+  const cancelEditingForm = () => {
+    if (isEditing) {
+      cancelEditItem();
+    } else {
+      setValues({ title: '', shortDescription: '' });
+      setPostText('');
     }
   };
 
@@ -78,8 +88,10 @@ const AddPost = ({
               name='postText'
               className=' text-black w-full px-5 py-5'
               placeholder='Write your post'
-              value={values.postText}
-              onChange={(value) => setValues({ ...values, postText: value })}
+              value={postText}
+              onChange={(value) => {
+                setPostText(value);
+              }}
             />
           </div>
 
@@ -89,8 +101,9 @@ const AddPost = ({
                 Save
               </button>
               <button
+                type='button'
                 className=' bg-red-700 hover:bg-red-500 px-4 py-1 rounded-lg text-white'
-                onClick={cancelEditItem}>
+                onClick={cancelEditingForm}>
                 Cancel
               </button>
             </div>
