@@ -16,6 +16,7 @@ export const initialUserState = {
   user: user ? JSON.parse(user) : null,
   token: token,
   users: [],
+  userRoles: ['admin', 'follower'],
 };
 
 const UserProvider = ({ children }) => {
