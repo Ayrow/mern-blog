@@ -89,9 +89,21 @@ const PostsProvider = ({ children }) => {
     }
   };
 
+  const updatePost = async (id) => {
+    try {
+    } catch (error) {}
+  };
+
   return (
     <PostsContext.Provider
-      value={{ ...state, addNewPost, getAllPosts, getSinglePost, deletePost }}>
+      value={{
+        ...state,
+        addNewPost,
+        getAllPosts,
+        getSinglePost,
+        deletePost,
+        updatePost,
+      }}>
       {children}
     </PostsContext.Provider>
   );

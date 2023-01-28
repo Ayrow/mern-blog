@@ -5,12 +5,13 @@ import { usePostsContext } from '../../context/posts/posts.context';
 
 const AddPost = ({
   isEditing,
+  itemID,
   oldPostTitle,
   oldShortDescription,
   oldPostText,
   cancelEditItem,
 }) => {
-  const { addNewPost } = usePostsContext();
+  const { addNewPost, updatePost } = usePostsContext();
   const [values, setValues] = useState({
     title: oldPostTitle || '',
     postText: oldPostText || '',
@@ -27,6 +28,7 @@ const AddPost = ({
     if (!title || !postText) {
       alert('One field is missing');
     } else if (isEditing) {
+      updatePost({ title, postText, shortDescription, itemID });
       setValues({ title: '', postText: '', shortDescription: '' });
     } else {
       addNewPost({ title, postText, shortDescription });

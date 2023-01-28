@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/app/app.context';
+import { usePostsContext } from '../context/posts/posts.context';
 import { useUserContext } from '../context/user/user.context';
 import { AddPost } from '../pages/Dashboard/index';
 
@@ -15,15 +16,8 @@ const DashboardSingleItem = ({
 }) => {
   const navigate = useNavigate();
   const { editItem, isEditing, itemID, cancelEditItem } = useAppContext();
-  const { userRoles, user } = useUserContext();
+  const { userRoles, user, updateUser } = useUserContext();
   const [roleValue, setRoleValue] = useState('');
-
-  const saveItemChanges = () => {
-    if (isPost) {
-    } else {
-      console.log('roleValue', roleValue);
-    }
-  };
 
   return (
     <div className='w-full'>
@@ -89,6 +83,7 @@ const DashboardSingleItem = ({
         <div className='w-full'>
           <AddPost
             isEditing={isEditing}
+            itemID={itemID}
             oldPostTitle={name}
             oldShortDescription={shortDescription}
             oldPostText={postText}
