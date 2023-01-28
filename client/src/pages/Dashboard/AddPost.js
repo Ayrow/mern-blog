@@ -29,7 +29,7 @@ const AddPost = ({
       alert('One field is missing');
     } else if (isEditing) {
       updatePost({ title, postText, shortDescription, itemID });
-      setValues({ title: '', postText: '', shortDescription: '' });
+      cancelEditItem();
     } else {
       addNewPost({ title, postText, shortDescription });
       setValues({ title: '', postText: '', shortDescription: '' });

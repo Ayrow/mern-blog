@@ -36,7 +36,12 @@ const deletePost = async (req, res) => {
 };
 
 const updatePost = async (req, res) => {
-  res.status(200).json({ msg: 'update Post' });
+  const { id } = req.params;
+  const updatedBlogPost = req.body;
+
+  await BlogPost.findOneAndUpdate({ _id: id }, updatedBlogPost);
+
+  res.status(200).json({ msg: 'updated Post' });
 };
 
 const savePost = async (req, res) => {
