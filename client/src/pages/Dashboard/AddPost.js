@@ -31,7 +31,7 @@ const AddPost = ({
       updatePost({ title, postText, shortDescription, itemID });
       cancelEditItem();
     } else {
-      // addNewPost({ title, postText, shortDescription });
+      addNewPost({ title, postText, shortDescription });
       setValues({ title: '', shortDescription: '' });
       setPostText('');
     }
