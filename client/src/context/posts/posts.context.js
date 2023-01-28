@@ -89,9 +89,17 @@ const PostsProvider = ({ children }) => {
     }
   };
 
-  const updatePost = async (id) => {
+  const updatePost = async ({ title, postText, shortDescription, itemID }) => {
     try {
-    } catch (error) {}
+      await authFetch.patch(`/posts/admin/${itemID}`, {
+        title,
+        postText,
+        shortDescription,
+      });
+      getAllPosts();
+    } catch (error) {
+      console.log('error', error);
+    }
   };
 
   return (

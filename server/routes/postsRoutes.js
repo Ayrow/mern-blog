@@ -5,6 +5,7 @@ import {
   commentPost,
   getSinglePost,
   deletePost,
+  updatePost,
   savePost,
   getAllSavedPosts,
   deleteSavedPost,
@@ -16,7 +17,10 @@ const router = express.Router();
 
 router.route('/').get(getAllPosts);
 router.route('/admin').post(authenticateUser, addPost);
-router.route('/admin/:id').delete(authenticateUser, deletePost);
+router
+  .route('/admin/:id')
+  .patch(authenticateUser, updatePost)
+  .delete(authenticateUser, deletePost);
 router
   .route('/userPosts/saved')
   .post(authenticateUser, savePost)
