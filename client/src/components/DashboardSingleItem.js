@@ -11,6 +11,7 @@ const DashboardSingleItem = ({
   isPost,
   role,
   deleteItem,
+  updateItem,
   shortDescription,
   postText,
 }) => {

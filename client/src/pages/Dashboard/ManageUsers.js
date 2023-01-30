@@ -3,7 +3,7 @@ import DashboardSingleItem from '../../components/DashboardSingleItem';
 import { useUserContext } from '../../context/user/user.context';
 
 const ManageUsers = () => {
-  const { users, fetchAllUsers } = useUserContext();
+  const { users, fetchAllUsers, deleteUser, updateUser } = useUserContext();
 
   useEffect(() => {
     fetchAllUsers();
@@ -27,6 +27,8 @@ const ManageUsers = () => {
                 id={_id}
                 name={username}
                 role={role}
+                deleteItem={deleteUser}
+                updateItem={updateUser}
               />
             );
           })}

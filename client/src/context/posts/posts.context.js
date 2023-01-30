@@ -82,7 +82,7 @@ const PostsProvider = ({ children }) => {
 
   const deletePost = async (id) => {
     try {
-      await authFetch.delete(`/posts/admin/${id}`);
+      await authFetch.delete(`/posts/admin/post/${id}`);
       dispatch({ type: DELETE_POST_SUCCESS, payload: id });
     } catch (error) {
       console.log('error', error);
@@ -91,7 +91,7 @@ const PostsProvider = ({ children }) => {
 
   const updatePost = async ({ title, postText, shortDescription, itemID }) => {
     try {
-      await authFetch.patch(`/posts/admin/${itemID}`, {
+      await authFetch.patch(`/posts/admin/post/${itemID}`, {
         title,
         postText,
         shortDescription,

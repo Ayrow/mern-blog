@@ -18,7 +18,7 @@ const router = express.Router();
 router.route('/').get(getAllPosts);
 router.route('/admin').post(authenticateUser, addPost);
 router
-  .route('/admin/:id')
+  .route('/admin/post/:id')
   .patch(authenticateUser, updatePost)
   .delete(authenticateUser, deletePost);
 router
