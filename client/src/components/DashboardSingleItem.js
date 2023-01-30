@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/app/app.context';
-import { usePostsContext } from '../context/posts/posts.context';
 import { useUserContext } from '../context/user/user.context';
 import { AddPost } from '../pages/Dashboard/index';
+import ConfirmationModal from './ConfirmationModal';
 
 const DashboardSingleItem = ({
   name,
@@ -15,18 +15,28 @@ const DashboardSingleItem = ({
   postText,
 }) => {
   const navigate = useNavigate();
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const { editItem, isEditing, itemID, cancelEditItem } = useAppContext();
   const { userRoles, user, updateUser } = useUserContext();
   const [roleValue, setRoleValue] = useState('');
 
   return (
     <div className='w-full'>
+      {showConfirmationModal && (
+        <ConfirmationModal
+          itemID={id}
+          isPost={isPost}
+          setShowConfirmationModal={setShowConfirmationModal}
+          deleteItem={deleteItem}
+          name={name}
+        />
+      )}
       <div className='mt-5 border grid grid-cols-3 p-5'>
         <h3 className=' font-semibold text-center'>{name}</h3>
         {isEditing && !isPost && itemID === id ? (
           <select
             name='role'
-            defaultValue={user.role}
+            value={role}
             onChange={(e) => setRoleValue(e.target.value)}
             className='block w-52 py-2 px-3 rounded-md capitalize
                 shadow-sm focus:outline-none focus:ring-primary-500
@@ -40,7 +50,7 @@ const DashboardSingleItem = ({
             })}
           </select>
         ) : (
-          <p className='text-lg text-center'>{role}</p>
+          <p className='text-lg text-center capitalize'>{role}</p>
         )}
 
         <div className='flex gap-5 justify-center'>
@@ -72,7 +82,7 @@ const DashboardSingleItem = ({
               </button>
               <button
                 className=' bg-red-400 hover:bg-red-300 px-4 py-1 rounded-lg'
-                onClick={() => deleteItem(id)}>
+                onClick={() => setShowConfirmationModal(true)}>
                 Delete
               </button>
             </div>
