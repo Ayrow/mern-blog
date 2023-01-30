@@ -6,7 +6,6 @@ import {
   FETCH_ALL_USERS_SUCCESS,
 } from '../actions';
 import axios from 'axios';
-import { getAllUsers } from '../../../../server/controllers/auth.controller';
 
 const UserContext = createContext();
 
@@ -96,7 +95,7 @@ const UserProvider = ({ children }) => {
   const deleteUser = async (id) => {
     try {
       await authFetch.delete(`/auth/user/${id}`);
-      getAllUsers();
+      fetchAllUsers();
     } catch (error) {
       console.log('error', error);
     }
