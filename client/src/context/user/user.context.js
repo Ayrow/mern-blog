@@ -90,12 +90,13 @@ const UserProvider = ({ children }) => {
   };
 
   const updateUserFromAdmin = async ({ id, roleValue, username }) => {
-    console.log('id', id);
-    console.log('roleValue', roleValue);
-    console.log('username', username);
-    cancelEditItem();
     try {
-    } catch (error) {}
+      await authFetch.patch(`/auth/user/${id}`, { roleValue, username });
+      fetchAllUsers();
+    } catch (error) {
+      console.log('error', error);
+      cancelEditItem();
+    }
   };
 
   const deleteUser = async (id) => {

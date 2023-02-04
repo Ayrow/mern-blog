@@ -47,7 +47,22 @@ const loginUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  res.status(200).json({ msg: 'updateUser' });
+  const { id } = req.params;
+  const { roleValue, username } = req.body;
+  const userRequesting = req.user.userId;
+
+  // updating user from admin
+  if (userRequesting.role && userRequesting.role === 'admin') {
+    let user = await User.findOne({ _id: id });
+    user.username = username;
+    user.role = roleValue;
+
+    await user.save();
+  }
+
+  // user updates his/her info
+
+  res.status(200).json({ msg: 'user updated' });
 };
 
 const deleteUser = async (req, res) => {
