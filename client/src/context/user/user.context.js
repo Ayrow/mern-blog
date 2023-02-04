@@ -6,6 +6,7 @@ import {
   FETCH_ALL_USERS_SUCCESS,
 } from '../actions';
 import axios from 'axios';
+import { useAppContext } from '../app/app.context';
 
 const UserContext = createContext();
 
@@ -21,6 +22,7 @@ export const initialUserState = {
 
 const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(userReducer, initialUserState);
+  const { cancelEditItem } = useAppContext();
 
   const authFetch = axios.create({
     baseURL: '/api/v1',
@@ -87,7 +89,11 @@ const UserProvider = ({ children }) => {
     }
   };
 
-  const updateUser = async (id) => {
+  const updateUserFromAdmin = async ({ id, roleValue, username }) => {
+    console.log('id', id);
+    console.log('roleValue', roleValue);
+    console.log('username', username);
+    cancelEditItem();
     try {
     } catch (error) {}
   };
@@ -108,7 +114,7 @@ const UserProvider = ({ children }) => {
         setupUser,
         logoutUser,
         fetchAllUsers,
-        updateUser,
+        updateUserFromAdmin,
         deleteUser,
         authFetch,
       }}>

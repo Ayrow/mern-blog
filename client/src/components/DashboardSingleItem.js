@@ -18,8 +18,9 @@ const DashboardSingleItem = ({
   const navigate = useNavigate();
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const { editItem, isEditing, itemID, cancelEditItem } = useAppContext();
-  const { userRoles, user, updateUser } = useUserContext();
-  const [roleValue, setRoleValue] = useState('');
+  const { userRoles } = useUserContext();
+  const [roleValue, setRoleValue] = useState(role);
+  const [username, setUsername] = useState(name);
 
   return (
     <div className='w-full'>
@@ -33,11 +34,21 @@ const DashboardSingleItem = ({
         />
       )}
       <div className='mt-5 border grid grid-cols-3 p-5'>
-        <h3 className=' font-semibold text-center'>{name}</h3>
+        {isEditing && !isPost && itemID === id ? (
+          <input
+            type='text'
+            defaultValue={name}
+            onChange={(e) => setUsername(e.target.value)}
+            className=' mx-2 border border-black '
+          />
+        ) : (
+          <h3 className=' font-semibold text-center'>{name}</h3>
+        )}
+
         {isEditing && !isPost && itemID === id ? (
           <select
             name='role'
-            value={role}
+            defaultValue={role}
             onChange={(e) => setRoleValue(e.target.value)}
             className='block w-52 py-2 px-3 rounded-md capitalize
                 shadow-sm focus:outline-none focus:ring-primary-500
@@ -65,7 +76,9 @@ const DashboardSingleItem = ({
 
           {isEditing && id === itemID && !isPost ? (
             <div className='flex gap-5 justify-center'>
-              <button className=' bg-green-400 hover:bg-green-300 px-4 py-1 rounded-lg'>
+              <button
+                className=' bg-green-400 hover:bg-green-300 px-4 py-1 rounded-lg'
+                onClick={() => updateItem({ id, roleValue, username })}>
                 Save
               </button>
               <button
