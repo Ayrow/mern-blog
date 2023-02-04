@@ -95,8 +95,8 @@ const UserProvider = ({ children }) => {
       fetchAllUsers();
     } catch (error) {
       console.log('error', error);
-      cancelEditItem();
     }
+    cancelEditItem();
   };
 
   const deleteUser = async (id) => {

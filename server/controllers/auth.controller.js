@@ -49,11 +49,14 @@ const loginUser = async (req, res) => {
 const updateUser = async (req, res) => {
   const { id } = req.params;
   const { roleValue, username } = req.body;
-  const userRequesting = req.user.userId;
+  const userRequestingID = req.user.userId;
+
+  const userRequesting = await User.findOne({ _id: userRequestingID });
+
+  let user = await User.findOne({ _id: id });
 
   // updating user from admin
   if (userRequesting.role && userRequesting.role === 'admin') {
-    let user = await User.findOne({ _id: id });
     user.username = username;
     user.role = roleValue;
 
