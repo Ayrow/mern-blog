@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/app/app.context';
-import { AddPost } from '../pages/Dashboard/index';
+
 import ConfirmationModal from './ConfirmationModal';
+import SinglePostToManage from './SinglePostToManage';
 import SingleUserToManage from './SingleUserToManage';
 
 const DashboardSingleItem = ({
@@ -15,7 +15,6 @@ const DashboardSingleItem = ({
   shortDescription,
   postText,
 }) => {
-  const navigate = useNavigate();
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const { editItem, isEditing, itemID, cancelEditItem } = useAppContext();
   const [username, setUsername] = useState(name);
@@ -32,42 +31,33 @@ const DashboardSingleItem = ({
         />
       )}
 
-      <SingleUserToManage
-        isEditing={isEditing}
-        itemID={itemID}
-        id={id}
-        name={name}
-        setUsername={setUsername}
-        role={role}
-        username={username}
-        cancelEditItem={cancelEditItem}
-        updateItem={updateItem}
-        editItem={editItem}
-        setShowConfirmationModal={setShowConfirmationModal}
-      />
-
-      <div className='flex gap-5 justify-center'>
-        {isPost && (
-          <button
-            onClick={() => navigate(`/posts/${id}`)}
-            className=' bg-blue-400 hover:bg-blue-300 px-4 py-1 rounded-lg'>
-            See
-          </button>
-        )}
-
-        {isPost && isEditing && itemID === id && (
-          <div className='w-full'>
-            <AddPost
-              isEditing={isEditing}
-              itemID={itemID}
-              oldPostTitle={name}
-              oldShortDescription={shortDescription}
-              oldPostText={postText}
-              cancelEditItem={cancelEditItem}
-            />
-          </div>
-        )}
-      </div>
+      {isPost ? (
+        <SinglePostToManage
+          isEditing={isEditing}
+          itemID={itemID}
+          id={id}
+          name={name}
+          shortDescription={shortDescription}
+          postText={postText}
+          cancelEditItem={cancelEditItem}
+          editItem={editItem}
+          setShowConfirmationModal={setShowConfirmationModal}
+        />
+      ) : (
+        <SingleUserToManage
+          isEditing={isEditing}
+          itemID={itemID}
+          id={id}
+          name={name}
+          setUsername={setUsername}
+          role={role}
+          username={username}
+          cancelEditItem={cancelEditItem}
+          updateItem={updateItem}
+          editItem={editItem}
+          setShowConfirmationModal={setShowConfirmationModal}
+        />
+      )}
     </div>
   );
 };
