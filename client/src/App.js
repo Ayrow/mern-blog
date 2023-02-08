@@ -9,6 +9,7 @@ import {
   ProfileSettings,
   SavedPosts,
   AllUserComments,
+  AllComments,
 } from './pages/Dashboard/index';
 
 import {
@@ -39,6 +40,7 @@ function App() {
           }>
           <Route path='add-post' element={<AddPost />} />
           <Route path='all-posts' element={<AllPosts />} />
+          <Route path='manage-comments' element={<AllComments />} />
           <Route path='manage-users' element={<ManageUsers />} />
           <Route path='saved-posts' element={<SavedPosts />} />
           <Route path='my-comments' element={<AllUserComments />} />

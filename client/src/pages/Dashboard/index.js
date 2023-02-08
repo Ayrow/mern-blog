@@ -5,6 +5,7 @@ import ManageUsers from './ManageUsers';
 import ProfileSettings from './ProfileSettings';
 import SavedPosts from './SavedPosts';
 import AllUserComments from './AllUserComments';
+import AllComments from './AllComments';
 
 export {
   AddPost,
@@ -14,4 +15,5 @@ export {
   ProfileSettings,
   SavedPosts,
   AllUserComments,
+  AllComments,
 };
