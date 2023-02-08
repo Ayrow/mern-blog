@@ -4,7 +4,7 @@ import connectDB from './db/connect.js';
 import authRouter from './routes/authRoutes.js';
 import postsRouter from './routes/postsRoutes.js';
 import commentsRouter from './routes/commentsRoutes.js';
-import authenticateUser from '../middleware/auth.js';
+import authenticateUser from './middleware/auth.js';
 
 const app = express();
 dotenv.config();
