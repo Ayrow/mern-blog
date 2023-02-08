@@ -36,6 +36,13 @@ const UserSchema = new mongoose.Schema(
         ref: 'BlogPost',
       },
     ],
+    comments: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: 'BlogPost',
+        body: String,
+      },
+    ],
     password: {
       type: String,
       select: false,
