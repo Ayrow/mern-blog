@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/app/app.context';
-import { useUserContext } from '../context/user/user.context';
 import { AddPost } from '../pages/Dashboard/index';
 import ConfirmationModal from './ConfirmationModal';
+import SingleUserToManage from './SingleUserToManage';
 
 const DashboardSingleItem = ({
   name,
@@ -18,8 +18,6 @@ const DashboardSingleItem = ({
   const navigate = useNavigate();
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const { editItem, isEditing, itemID, cancelEditItem } = useAppContext();
-  const { userRoles } = useUserContext();
-  const [roleValue, setRoleValue] = useState(role);
   const [username, setUsername] = useState(name);
 
   return (
@@ -33,88 +31,43 @@ const DashboardSingleItem = ({
           name={name}
         />
       )}
-      <div className='mt-5 border grid grid-cols-3 p-5'>
-        {isEditing && !isPost && itemID === id ? (
-          <input
-            type='text'
-            defaultValue={name}
-            onChange={(e) => setUsername(e.target.value)}
-            className=' mx-2 border border-black '
-          />
-        ) : (
-          <h3 className=' font-semibold text-center'>{name}</h3>
+
+      <SingleUserToManage
+        isEditing={isEditing}
+        itemID={itemID}
+        id={id}
+        name={name}
+        setUsername={setUsername}
+        role={role}
+        username={username}
+        cancelEditItem={cancelEditItem}
+        updateItem={updateItem}
+        editItem={editItem}
+        setShowConfirmationModal={setShowConfirmationModal}
+      />
+
+      <div className='flex gap-5 justify-center'>
+        {isPost && (
+          <button
+            onClick={() => navigate(`/posts/${id}`)}
+            className=' bg-blue-400 hover:bg-blue-300 px-4 py-1 rounded-lg'>
+            See
+          </button>
         )}
 
-        {isEditing && !isPost && itemID === id ? (
-          <select
-            name='role'
-            defaultValue={role}
-            onChange={(e) => setRoleValue(e.target.value)}
-            className='block w-52 py-2 px-3 rounded-md capitalize
-                shadow-sm focus:outline-none focus:ring-primary-500
-                focus:border-primary-500 border bg-white border-black text-black'>
-            {userRoles.map((item, index) => {
-              return (
-                <option key={index} value={item} className=''>
-                  {item}
-                </option>
-              );
-            })}
-          </select>
-        ) : (
-          <p className='text-lg text-center capitalize'>{role}</p>
+        {isPost && isEditing && itemID === id && (
+          <div className='w-full'>
+            <AddPost
+              isEditing={isEditing}
+              itemID={itemID}
+              oldPostTitle={name}
+              oldShortDescription={shortDescription}
+              oldPostText={postText}
+              cancelEditItem={cancelEditItem}
+            />
+          </div>
         )}
-
-        <div className='flex gap-5 justify-center'>
-          {isPost && (
-            <button
-              onClick={() => navigate(`/posts/${id}`)}
-              className=' bg-blue-400 hover:bg-blue-300 px-4 py-1 rounded-lg'>
-              See
-            </button>
-          )}
-
-          {isEditing && id === itemID && !isPost ? (
-            <div className='flex gap-5 justify-center'>
-              <button
-                className=' bg-green-400 hover:bg-green-300 px-4 py-1 rounded-lg'
-                onClick={() => updateItem({ id, roleValue, username })}>
-                Save
-              </button>
-              <button
-                className=' bg-red-400 hover:bg-red-300 px-4 py-1 rounded-lg'
-                onClick={cancelEditItem}>
-                Cancel
-              </button>
-            </div>
-          ) : (
-            <div className='flex gap-5 justify-center'>
-              <button
-                className=' bg-green-400 hover:bg-green-300 px-4 py-1 rounded-lg'
-                onClick={() => editItem(id)}>
-                Edit
-              </button>
-              <button
-                className=' bg-red-400 hover:bg-red-300 px-4 py-1 rounded-lg'
-                onClick={() => setShowConfirmationModal(true)}>
-                Delete
-              </button>
-            </div>
-          )}
-        </div>
       </div>
-      {isPost && isEditing && itemID === id && (
-        <div className='w-full'>
-          <AddPost
-            isEditing={isEditing}
-            itemID={itemID}
-            oldPostTitle={name}
-            oldShortDescription={shortDescription}
-            oldPostText={postText}
-            cancelEditItem={cancelEditItem}
-          />
-        </div>
-      )}
     </div>
   );
 };
