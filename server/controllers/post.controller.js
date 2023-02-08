@@ -25,10 +25,6 @@ const getSinglePost = async (req, res) => {
   res.status(200).json({ post });
 };
 
-const commentPost = async (req, res) => {
-  res.status(200).json({ msg: 'comment Post' });
-};
-
 const deletePost = async (req, res) => {
   const { id } = req.params;
   await BlogPost.deleteOne({ _id: id });
@@ -59,7 +55,6 @@ const deleteSavedPost = async (req, res) => {
 export {
   getAllPosts,
   addPost,
-  commentPost,
   getSinglePost,
   deletePost,
   savePost,

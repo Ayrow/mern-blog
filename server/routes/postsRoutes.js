@@ -2,7 +2,6 @@ import express from 'express';
 import {
   getAllPosts,
   addPost,
-  commentPost,
   getSinglePost,
   deletePost,
   updatePost,
@@ -26,6 +25,7 @@ router
   .post(authenticateUser, savePost)
   .get(authenticateUser, getAllSavedPosts);
 router.route('/userPosts/saved/:id').delete(authenticateUser, deleteSavedPost);
-router.route('/:id').post(authenticateUser, commentPost).get(getSinglePost);
+
+router.route('/:id').get(getSinglePost);
 
 export default router;
