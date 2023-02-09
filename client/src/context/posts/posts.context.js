@@ -15,6 +15,7 @@ const initialPostsState = {
   isEditing: false,
   editID: null,
   singlePost: {},
+  comments: [],
 };
 
 const PostsContext = createContext();
@@ -102,6 +103,15 @@ const PostsProvider = ({ children }) => {
     }
   };
 
+  const addComment = async ({ postID, commentMessage }) => {
+    console.log('postID', postID);
+    console.log('commentMessage', commentMessage);
+    try {
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
   return (
     <PostsContext.Provider
       value={{
@@ -111,6 +121,7 @@ const PostsProvider = ({ children }) => {
         getSinglePost,
         deletePost,
         updatePost,
+        addComment,
       }}>
       {children}
     </PostsContext.Provider>
