@@ -39,8 +39,7 @@ const UserSchema = new mongoose.Schema(
     comments: [
       {
         type: mongoose.Types.ObjectId,
-        ref: 'BlogPost',
-        body: String,
+        ref: 'Comments',
       },
     ],
     password: {

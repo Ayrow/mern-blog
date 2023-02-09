@@ -19,8 +19,7 @@ const BlogPostSchema = new mongoose.Schema(
     comments: [
       {
         type: mongoose.Types.ObjectId,
-        ref: 'User',
-        body: String,
+        ref: 'Comments',
       },
     ],
     createdBy: {
