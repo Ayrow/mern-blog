@@ -15,7 +15,7 @@ const addComment = async (req, res) => {
       post: postID,
       createdBy: req.user.userId,
     });
-    res.status(200).json(Comments);
+    res.status(200).json({ msg: 'comment added' });
   }
 
   res.status(200).json({ msg: 'comment Post' });
