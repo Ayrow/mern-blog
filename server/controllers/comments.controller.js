@@ -5,18 +5,18 @@ import Comments from '../models/Comments.js';
 const addComment = async (req, res) => {
   const { postID, commentMessage } = req.body;
 
-  const user = await User.findOneAndUpdate(
-    { _id: req.user.userId },
-    { $push: { comments: commentMessage } }
-  );
-
-  const post = await BlogPost.findOneAndUpdate(
-    { _id: postID },
-    { $push: { comments: commentMessage } }
-  );
-
-  console.log('post', post);
-  console.log('user', user);
+  if (!commentMessage) {
+    throw Error('You need an account to post a comment');
+  } else if (!commentMessage) {
+    throw Error('You need to type a comment');
+  } else {
+    await Comments.create({
+      body: commentMessage,
+      post: postID,
+      createdBy: req.user.userId,
+    });
+    res.status(200).json(Comments);
+  }
 
   res.status(200).json({ msg: 'comment Post' });
 };

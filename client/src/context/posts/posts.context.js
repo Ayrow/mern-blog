@@ -105,8 +105,11 @@ const PostsProvider = ({ children }) => {
 
   const addComment = async ({ postID, commentMessage }) => {
     try {
-      await authFetch.post('/comments/user', { postID, commentMessage });
-      getSinglePost(postID);
+      const { data } = await authFetch.post('/comments/user', {
+        postID,
+        commentMessage,
+      });
+      console.log(data);
     } catch (error) {
       console.log('error', error);
     }
