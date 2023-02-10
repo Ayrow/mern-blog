@@ -52,21 +52,27 @@ const SinglePostPage = () => {
           )}
         </div>
 
-        <div className='flex flex-col gap-5'>
-          {comments.map((comment, index) => {
-            const { createdByUsername, body } = comment;
-            return (
-              <div
-                key={index}
-                className='border border-white rounded-lg p-2 shadow-sm shadow-slate-500'>
-                <h3 className='text-lg font-bold capitalize'>
-                  {createdByUsername}
-                </h3>
-                <p className='py-5'>{body}</p>
-              </div>
-            );
-          })}
-        </div>
+        {comments.length === 0 ? (
+          <p className=' text-lg font-semibold'>
+            No comments to display for now
+          </p>
+        ) : (
+          <div className='flex flex-col gap-5'>
+            {comments.map((comment, index) => {
+              const { createdByUsername, body } = comment;
+              return (
+                <div
+                  key={index}
+                  className='border border-white rounded-lg p-2 shadow-sm shadow-slate-500'>
+                  <h3 className='text-lg font-bold capitalize'>
+                    {createdByUsername}
+                  </h3>
+                  <p className='py-5'>{body}</p>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
