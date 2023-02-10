@@ -36,7 +36,10 @@ const getUserComments = async (req, res) => {
 };
 
 const getPostComments = async (req, res) => {
-  res.status(200).json({ msg: 'comment Post' });
+  const { id } = req.params;
+  const postComments = await Comments.find({ post: id });
+
+  res.status(200).json(postComments);
 };
 
 export {

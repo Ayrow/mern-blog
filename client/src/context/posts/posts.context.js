@@ -6,6 +6,7 @@ import {
   CREATE_POST_SUCCESS,
   DELETE_POST_SUCCESS,
   GET_ALL_POSTS_SUCCESS,
+  GET_COMMENTS_POST_SUCCESS,
   GET_SINGLE_POST_SUCCESS,
 } from '../actions';
 import { useUserContext } from '../user/user.context';
@@ -117,9 +118,8 @@ const PostsProvider = ({ children }) => {
 
   const getPostComments = async (id) => {
     try {
-      const { data } = await authFetch.get(`/post/${id}`);
-      const { post } = data;
-      dispatch({ type: getPostComments, payload: post });
+      const { data } = await authFetch.get(`comments/post/${id}`);
+      dispatch({ type: GET_COMMENTS_POST_SUCCESS, payload: data });
     } catch (error) {
       console.log('error', error);
     }
