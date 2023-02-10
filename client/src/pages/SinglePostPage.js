@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { usePostsContext } from '../context/posts/posts.context';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
@@ -9,6 +9,7 @@ import CommentForm from '../components/CommentForm';
 const SinglePostPage = () => {
   const { getSinglePost, singlePost, getPostComments, comments } =
     usePostsContext();
+  const navigate = useNavigate();
   const { user } = useUserContext();
   let { id } = useParams();
   const [showCommmentForm, setShowCommentForm] = useState(false);
@@ -40,17 +41,32 @@ const SinglePostPage = () => {
 
       <div className=' bg-slate-800 text-white p-10 flex flex-col gap-12 w-full'>
         <h3 className='text-center text-xl'>Comment Section</h3>
-        <div>
-          <button
-            type='button'
-            className='border px-2 py-1 rounded-lg hover:bg-slate-500'
-            onClick={() => setShowCommentForm(!showCommmentForm)}>
-            {showCommmentForm ? 'Cancel' : 'Add comment'}
-          </button>
-          {showCommmentForm && (
-            <CommentForm setShowCommentForm={setShowCommentForm} postID={id} />
-          )}
-        </div>
+
+        {!user ? (
+          <div>
+            You need an account to post a comment :{' '}
+            <span
+              className=' cursor-pointer italic'
+              onClick={() => navigate('/login')}>
+              Login / Register
+            </span>
+          </div>
+        ) : (
+          <div>
+            <button
+              type='button'
+              className='border px-2 py-1 rounded-lg hover:bg-slate-500'
+              onClick={() => setShowCommentForm(!showCommmentForm)}>
+              {showCommmentForm ? 'Cancel' : 'Add comment'}
+            </button>
+            {showCommmentForm && (
+              <CommentForm
+                setShowCommentForm={setShowCommentForm}
+                postID={id}
+              />
+            )}
+          </div>
+        )}
 
         {comments.length === 0 ? (
           <p className=' text-lg font-semibold'>
