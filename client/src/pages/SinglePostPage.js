@@ -47,7 +47,9 @@ const SinglePostPage = () => {
             onClick={() => setShowCommentForm(!showCommmentForm)}>
             {showCommmentForm ? 'Cancel' : 'Add comment'}
           </button>
-          {showCommmentForm && <CommentForm postID={id} />}
+          {showCommmentForm && (
+            <CommentForm setShowCommentForm={setShowCommentForm} postID={id} />
+          )}
         </div>
 
         <div className='flex flex-col gap-5'>

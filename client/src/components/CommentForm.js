@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { usePostsContext } from '../context/posts/posts.context';
 
-const CommentForm = ({ postID }) => {
+const CommentForm = ({ postID, setShowCommentForm }) => {
   const { addComment } = usePostsContext();
   const [commentMessage, setCommentMessage] = useState('');
 
@@ -9,6 +9,7 @@ const CommentForm = ({ postID }) => {
     e.preventDefault();
     addComment({ commentMessage, postID });
     setCommentMessage('');
+    setShowCommentForm(false);
   };
 
   return (
@@ -21,6 +22,7 @@ const CommentForm = ({ postID }) => {
           <textarea
             id='comment'
             rows='4'
+            value={commentMessage}
             className='w-full px-0 text-sm text-gray-900 bg-white border-0 dfocus:ring-0 '
             placeholder='Write a comment...'
             onChange={(e) => setCommentMessage(e.target.value)}
