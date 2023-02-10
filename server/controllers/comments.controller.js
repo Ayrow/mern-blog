@@ -17,8 +17,6 @@ const addComment = async (req, res) => {
     });
     res.status(200).json({ msg: 'comment added' });
   }
-
-  res.status(200).json({ msg: 'comment Post' });
 };
 
 const editComment = async (req, res) => {
@@ -33,4 +31,19 @@ const getAllComments = async (req, res) => {
   res.status(200).json({ msg: 'comment Post' });
 };
 
-export { addComment, editComment, deleteComment, getAllComments };
+const getUserComments = async (req, res) => {
+  res.status(200).json({ msg: 'get user comments' });
+};
+
+const getPostComments = async (req, res) => {
+  res.status(200).json({ msg: 'comment Post' });
+};
+
+export {
+  addComment,
+  editComment,
+  deleteComment,
+  getAllComments,
+  getUserComments,
+  getPostComments,
+};

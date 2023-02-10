@@ -16,6 +16,7 @@ const BlogPostSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Please provide text'],
     },
+    comments: [{ type: mongoose.Types.ObjectId, ref: 'Comments' }],
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: 'User',

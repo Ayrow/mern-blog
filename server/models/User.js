@@ -36,6 +36,7 @@ const UserSchema = new mongoose.Schema(
         ref: 'BlogPost',
       },
     ],
+    comments: [{ type: mongoose.Types.ObjectId, ref: 'Comments' }],
     password: {
       type: String,
       select: false,
