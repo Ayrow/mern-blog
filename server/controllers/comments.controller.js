@@ -10,10 +10,13 @@ const addComment = async (req, res) => {
   } else if (!commentMessage) {
     throw Error('You need to type a comment');
   } else {
+    const user = await User.findOne({ _id: req.user.userId });
+
     await Comments.create({
       body: commentMessage,
       post: postID,
-      createdBy: req.user.userId,
+      createdByUsername: user.username,
+      createdBy: user._id,
     });
     res.status(200).json({ msg: 'comment added' });
   }
