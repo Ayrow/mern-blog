@@ -7,13 +7,15 @@ import { useUserContext } from '../context/user/user.context';
 import CommentForm from '../components/CommentForm';
 
 const SinglePostPage = () => {
-  const { getSinglePost, singlePost } = usePostsContext();
+  const { getSinglePost, singlePost, getPostComments, comments } =
+    usePostsContext();
   const { user } = useUserContext();
   let { id } = useParams();
   const [showCommmentForm, setShowCommentForm] = useState(false);
 
   useEffect(() => {
     getSinglePost(id);
+    getPostComments(id);
   }, []);
 
   return (

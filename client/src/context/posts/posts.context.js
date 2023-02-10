@@ -115,6 +115,21 @@ const PostsProvider = ({ children }) => {
     }
   };
 
+  const getPostComments = async (id) => {
+    try {
+      const { data } = await authFetch.get(`/post/${id}`);
+      const { post } = data;
+      dispatch({ type: getPostComments, payload: post });
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  const getUserComments = async () => {
+    try {
+    } catch (error) {}
+  };
+
   return (
     <PostsContext.Provider
       value={{
@@ -125,6 +140,8 @@ const PostsProvider = ({ children }) => {
         deletePost,
         updatePost,
         addComment,
+        getPostComments,
+        getUserComments,
       }}>
       {children}
     </PostsContext.Provider>

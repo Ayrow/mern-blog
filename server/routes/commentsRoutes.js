@@ -13,10 +13,8 @@ import authenticateUser from '../middleware/auth.js';
 const router = express.Router();
 
 router.route('/').get(getAllComments);
-router
-  .route('/user')
-  .post(authenticateUser, addComment)
-  .get(authenticateUser, getUserComments);
+router.route('/user/').post(authenticateUser, addComment);
+router.route('/user/:id').get(authenticateUser, getUserComments);
 router.route('/post/:id').get(getPostComments);
 router
   .route('/:id')
