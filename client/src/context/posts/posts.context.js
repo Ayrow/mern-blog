@@ -125,9 +125,12 @@ const PostsProvider = ({ children }) => {
     }
   };
 
-  const getUserComments = async () => {
+  const getUserComments = async (id) => {
     try {
-    } catch (error) {}
+      await authFetch.get(`/user/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
