@@ -35,7 +35,16 @@ const getAllComments = async (req, res) => {
 };
 
 const getUserComments = async (req, res) => {
-  res.status(200).json({ msg: 'get user comments' });
+  const { id } = req.params;
+  const userID = req.user.userId;
+
+  if (id !== userID) {
+    throw Error('Issue verifying your account');
+  }
+
+  const userComments = await BlogPost.find({ createdBy: id });
+
+  res.status(200).json(userComments);
 };
 
 const getPostComments = async (req, res) => {
