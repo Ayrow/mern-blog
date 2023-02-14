@@ -30,6 +30,7 @@ const ManageUsers = () => {
                 role={role}
                 deleteItem={deleteUser}
                 updateItem={updateUserFromAdmin}
+                isUser={true}
               />
             );
           })}

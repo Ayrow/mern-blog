@@ -43,7 +43,6 @@ const getUserComments = async (req, res) => {
   }
 
   const userComments = await Comments.find({ createdBy: id });
-  console.log('comments', userComments);
 
   res.status(200).json(userComments);
 };

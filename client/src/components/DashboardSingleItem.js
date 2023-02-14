@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAppContext } from '../context/app/app.context';
 
 import ConfirmationModal from './ConfirmationModal';
+import SingleCommentToManage from './SingleCommentToManage';
 import SinglePostToManage from './SinglePostToManage';
 import SingleUserToManage from './SingleUserToManage';
 
@@ -9,6 +10,8 @@ const DashboardSingleItem = ({
   name,
   id,
   isPost,
+  isUser,
+  isComment,
   role,
   deleteItem,
   updateItem,
@@ -31,7 +34,7 @@ const DashboardSingleItem = ({
         />
       )}
 
-      {isPost ? (
+      {isPost && (
         <SinglePostToManage
           isEditing={isEditing}
           itemID={itemID}
@@ -43,7 +46,9 @@ const DashboardSingleItem = ({
           editItem={editItem}
           setShowConfirmationModal={setShowConfirmationModal}
         />
-      ) : (
+      )}
+
+      {isUser && (
         <SingleUserToManage
           isEditing={isEditing}
           itemID={itemID}
@@ -55,6 +60,16 @@ const DashboardSingleItem = ({
           cancelEditItem={cancelEditItem}
           updateItem={updateItem}
           editItem={editItem}
+          setShowConfirmationModal={setShowConfirmationModal}
+        />
+      )}
+
+      {isComment && (
+        <SingleCommentToManage
+          isEditing={isEditing}
+          itemID={itemID}
+          id={id}
+          name={name}
           setShowConfirmationModal={setShowConfirmationModal}
         />
       )}

@@ -4,7 +4,6 @@ import DashboardSingleItem from '../../components/DashboardSingleItem';
 
 const AllPosts = () => {
   const { getAllPosts, posts, deletePost } = usePostsContext();
-  const isPost = true;
 
   useEffect(() => {
     getAllPosts();
@@ -21,7 +20,7 @@ const AllPosts = () => {
               key={_id}
               id={_id}
               name={title}
-              isPost={isPost}
+              isPost={true}
               deleteItem={deletePost}
               shortDescription={shortDescription}
               postText={postText}
