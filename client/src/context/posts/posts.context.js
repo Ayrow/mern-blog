@@ -134,6 +134,20 @@ const PostsProvider = ({ children }) => {
     }
   };
 
+  const updateComment = async (id) => {
+    try {
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteComment = async (id) => {
+    try {
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <PostsContext.Provider
       value={{
@@ -146,6 +160,8 @@ const PostsProvider = ({ children }) => {
         addComment,
         getPostComments,
         getUserComments,
+        updateComment,
+        deleteComment,
       }}>
       {children}
     </PostsContext.Provider>

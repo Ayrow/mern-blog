@@ -3,11 +3,13 @@ import React from 'react';
 const SingleCommentToManage = ({
   isEditing,
   itemID,
-  name,
   id,
   commentBody,
   setShowConfirmationModal,
   postTitle,
+  editItem,
+  cancelEditItem,
+  updateItem,
 }) => {
   return (
     <div>
@@ -21,10 +23,14 @@ const SingleCommentToManage = ({
           />
 
           <div className='flex gap-5 justify-center'>
-            <button className=' bg-green-400 hover:bg-green-300 px-4 py-1 rounded-lg'>
+            <button
+              className=' bg-green-400 hover:bg-green-300 px-4 py-1 rounded-lg'
+              onClick={() => updateItem(id)}>
               Save
             </button>
-            <button className=' bg-red-400 hover:bg-red-300 px-4 py-1 rounded-lg'>
+            <button
+              className=' bg-red-400 hover:bg-red-300 px-4 py-1 rounded-lg'
+              onClick={cancelEditItem}>
               Cancel
             </button>
           </div>
@@ -34,7 +40,9 @@ const SingleCommentToManage = ({
           <h3 className=' font-semibold text-center'>{postTitle}</h3>
           <p className='text-lg text-center capitalize'>{commentBody}</p>
           <div className='flex gap-5 justify-center'>
-            <button className=' bg-green-400 hover:bg-green-300 px-4 py-1 rounded-lg'>
+            <button
+              className=' bg-green-400 hover:bg-green-300 px-4 py-1 rounded-lg'
+              onClick={() => editItem(id)}>
               Edit
             </button>
             <button

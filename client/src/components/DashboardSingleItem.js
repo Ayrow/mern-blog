@@ -72,8 +72,9 @@ const DashboardSingleItem = ({
           commentBody={body}
           postTitle={postTitle}
           id={id}
-          name={name}
+          cancelEditItem={cancelEditItem}
           setShowConfirmationModal={setShowConfirmationModal}
+          editItem={editItem}
         />
       )}
     </div>

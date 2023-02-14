@@ -5,7 +5,8 @@ import { useUserContext } from '../../context/user/user.context';
 
 const AllUserComments = () => {
   const { user } = useUserContext();
-  const { getUserComments, comments } = usePostsContext();
+  const { getUserComments, comments, deleteComment, updateComment } =
+    usePostsContext();
 
   useEffect(() => {
     getUserComments(user._id);
@@ -21,8 +22,9 @@ const AllUserComments = () => {
             <DashboardSingleItem
               key={_id}
               id={_id}
-              name={post}
-              // deleteItem={deletePost}
+              name={postTitle}
+              deleteItem={deleteComment}
+              updateItem={updateComment}
               body={body}
               postTitle={postTitle}
               isComment={true}
