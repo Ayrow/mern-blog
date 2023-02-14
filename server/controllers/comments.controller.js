@@ -42,7 +42,8 @@ const getUserComments = async (req, res) => {
     throw Error('Issue verifying your account');
   }
 
-  const userComments = await BlogPost.find({ createdBy: id });
+  const userComments = await Comments.find({ createdBy: id });
+  console.log('comments', userComments);
 
   res.status(200).json(userComments);
 };

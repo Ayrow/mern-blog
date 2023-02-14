@@ -2,7 +2,7 @@ import {
   CREATE_POST_SUCCESS,
   DELETE_POST_SUCCESS,
   GET_ALL_POSTS_SUCCESS,
-  GET_COMMENTS_POST_SUCCESS,
+  GET_COMMENTS_SUCCESS,
   GET_SINGLE_POST_SUCCESS,
 } from '../actions';
 
@@ -31,7 +31,7 @@ const postsReducer = (state, action) => {
         ...state,
         posts: newPostList,
       };
-    case GET_COMMENTS_POST_SUCCESS:
+    case GET_COMMENTS_SUCCESS:
       return {
         ...state,
         comments: action.payload,
