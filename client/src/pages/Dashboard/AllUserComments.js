@@ -16,15 +16,15 @@ const AllUserComments = () => {
       <div>Filter and Sort Container</div>
       <div className='flex flex-col gap-5'>
         {comments.map((item) => {
-          const { _id, post, body } = item;
+          const { _id, post, body, postTitle } = item;
           return (
             <DashboardSingleItem
               key={_id}
               id={_id}
               name={post}
               // deleteItem={deletePost}
-
-              postText={body}
+              body={body}
+              postTitle={postTitle}
               isComment={true}
             />
           );

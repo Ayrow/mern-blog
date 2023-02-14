@@ -7,6 +7,7 @@ const CommentsSchema = new mongoose.Schema(
       type: mongoose.Types.ObjectId,
       ref: 'BlogPost',
     },
+    postTitle: String,
     createdByUsername: String,
     createdBy: {
       type: mongoose.Types.ObjectId,

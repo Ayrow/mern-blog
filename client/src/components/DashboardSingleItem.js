@@ -16,7 +16,8 @@ const DashboardSingleItem = ({
   deleteItem,
   updateItem,
   shortDescription,
-  postText,
+  body,
+  postTitle,
 }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const { editItem, isEditing, itemID, cancelEditItem } = useAppContext();
@@ -41,7 +42,7 @@ const DashboardSingleItem = ({
           id={id}
           name={name}
           shortDescription={shortDescription}
-          postText={postText}
+          postText={body}
           cancelEditItem={cancelEditItem}
           editItem={editItem}
           setShowConfirmationModal={setShowConfirmationModal}
@@ -68,6 +69,8 @@ const DashboardSingleItem = ({
         <SingleCommentToManage
           isEditing={isEditing}
           itemID={itemID}
+          commentBody={body}
+          postTitle={postTitle}
           id={id}
           name={name}
           setShowConfirmationModal={setShowConfirmationModal}

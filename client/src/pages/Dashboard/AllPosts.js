@@ -23,7 +23,7 @@ const AllPosts = () => {
               isPost={true}
               deleteItem={deletePost}
               shortDescription={shortDescription}
-              postText={postText}
+              body={postText}
             />
           );
         })}
