@@ -77,6 +77,7 @@ const DashboardSingleItem = ({
           setShowConfirmationModal={setShowConfirmationModal}
           editItem={editItem}
           postID={postID}
+          updateItem={updateItem}
         />
       )}
     </div>

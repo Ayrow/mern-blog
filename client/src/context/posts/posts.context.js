@@ -133,8 +133,9 @@ const PostsProvider = ({ children }) => {
     }
   };
 
-  const updateComment = async (id) => {
+  const updateComment = async ({ id, commentText }) => {
     try {
+      console.log('commentText', commentText);
     } catch (error) {
       console.log(error);
     }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const SingleCommentToManage = ({
@@ -15,6 +15,18 @@ const SingleCommentToManage = ({
 }) => {
   const navigate = useNavigate();
 
+  const [commentText, setCommentText] = useState(commentBody);
+
+  const handleSaveComment = () => {
+    if (!commentText) {
+      cancelEditItem();
+      setCommentText(commentBody);
+    } else {
+      updateItem({ id, commentText });
+      setCommentText(commentBody);
+    }
+  };
+
   return (
     <div>
       {isEditing && id === itemID ? (
@@ -23,13 +35,14 @@ const SingleCommentToManage = ({
           <textarea
             type='text'
             defaultValue={commentBody}
+            onChange={(e) => setCommentText(e.target.value)}
             className=' mx-2 border border-black '
           />
 
           <div className='flex gap-5 justify-center'>
             <button
               className=' bg-green-400 hover:bg-green-300 px-4 py-1 rounded-lg'
-              onClick={() => updateItem(id)}>
+              onClick={handleSaveComment}>
               Save
             </button>
             <button
