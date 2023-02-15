@@ -29,7 +29,13 @@ const editComment = async (req, res) => {
 };
 
 const deleteComment = async (req, res) => {
-  res.status(200).json({ msg: 'delete Comment' });
+  const { id: commentID } = req.params;
+  const userID = req.user.userId;
+
+  await Comments.findOneAndDelete({ _id: commentID });
+  const userComments = await Comments.find({ createdBy: userID });
+
+  res.status(200).json(userComments);
 };
 
 const getAllComments = async (req, res) => {
