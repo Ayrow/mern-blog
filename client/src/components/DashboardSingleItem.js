@@ -17,6 +17,7 @@ const DashboardSingleItem = ({
   updateItem,
   shortDescription,
   body,
+  postID,
   postTitle,
 }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -75,6 +76,7 @@ const DashboardSingleItem = ({
           cancelEditItem={cancelEditItem}
           setShowConfirmationModal={setShowConfirmationModal}
           editItem={editItem}
+          postID={postID}
         />
       )}
     </div>

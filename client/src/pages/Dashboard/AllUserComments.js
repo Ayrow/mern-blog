@@ -27,6 +27,7 @@ const AllUserComments = () => {
               updateItem={updateComment}
               body={body}
               postTitle={postTitle}
+              postID={post}
               isComment={true}
             />
           );
