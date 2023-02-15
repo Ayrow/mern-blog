@@ -135,7 +135,11 @@ const PostsProvider = ({ children }) => {
 
   const updateComment = async ({ id, commentText }) => {
     try {
-      console.log('commentText', commentText);
+      const { data } = await authFetch.patch(`comments/${id}`, {
+        commentText,
+      });
+      console.log(data);
+      dispatch({ type: GET_COMMENTS_SUCCESS, payload: data });
     } catch (error) {
       console.log(error);
     }

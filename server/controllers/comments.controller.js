@@ -25,7 +25,14 @@ const addComment = async (req, res) => {
 };
 
 const editComment = async (req, res) => {
-  res.status(200).json({ msg: 'Edit comment' });
+  const { commentText } = req.body;
+  const { id } = req.params;
+  const { userId } = req.user;
+
+  await Comments.updateOne({ _id: id }, { body: commentText });
+  const userComments = await Comments.find({ createdBy: userId });
+
+  res.status(200).json(userComments);
 };
 
 const deleteComment = async (req, res) => {

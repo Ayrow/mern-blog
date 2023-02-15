@@ -24,6 +24,7 @@ const SingleCommentToManage = ({
     } else {
       updateItem({ id, commentText });
       setCommentText(commentBody);
+      cancelEditItem();
     }
   };
 
@@ -55,7 +56,7 @@ const SingleCommentToManage = ({
       ) : (
         <div className='mt-5 border grid grid-cols-3 p-5'>
           <h3 className=' font-semibold text-center'>{postTitle}</h3>
-          <p className='text-lg text-center capitalize'>{commentBody}</p>
+          <p className='text-lg text-center'>{commentBody}</p>
           <div className='flex gap-5 justify-center'>
             <button
               onClick={() => navigate(`/posts/${postID}`)}
