@@ -106,11 +106,10 @@ const PostsProvider = ({ children }) => {
 
   const addComment = async ({ postID, commentMessage }) => {
     try {
-      const { data } = await authFetch.post('/comments/user', {
+      await authFetch.post('/comments/user', {
         postID,
         commentMessage,
       });
-      console.log(data);
     } catch (error) {
       console.log('error', error);
     }
@@ -143,6 +142,8 @@ const PostsProvider = ({ children }) => {
 
   const deleteComment = async (id) => {
     try {
+      const { data } = await authFetch.delete(`comments/${id}`);
+      dispatch({ type: GET_COMMENTS_SUCCESS, payload: data });
     } catch (error) {
       console.log(error);
     }
