@@ -124,6 +124,16 @@ const PostsProvider = ({ children }) => {
     }
   };
 
+  const getAllComments = async () => {
+    try {
+      const { data } = await authFetch.get('comments');
+      console.log(data);
+      dispatch({ type: GET_COMMENTS_SUCCESS, payload: data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getUserComments = async (id) => {
     try {
       const { data } = await authFetch.get(`comments/user/${id}`);
@@ -138,7 +148,6 @@ const PostsProvider = ({ children }) => {
       const { data } = await authFetch.patch(`comments/${id}`, {
         commentText,
       });
-      console.log(data);
       dispatch({ type: GET_COMMENTS_SUCCESS, payload: data });
     } catch (error) {
       console.log(error);
@@ -168,6 +177,7 @@ const PostsProvider = ({ children }) => {
         getUserComments,
         updateComment,
         deleteComment,
+        getAllComments,
       }}>
       {children}
     </PostsContext.Provider>

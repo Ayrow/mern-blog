@@ -46,7 +46,11 @@ const deleteComment = async (req, res) => {
 };
 
 const getAllComments = async (req, res) => {
-  res.status(200).json({ msg: 'comment Post' });
+  const userID = req.user.userId;
+
+  const allComments = await Comments.find();
+
+  res.status(200).json(allComments);
 };
 
 const getUserComments = async (req, res) => {
