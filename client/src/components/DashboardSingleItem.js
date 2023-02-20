@@ -19,6 +19,7 @@ const DashboardSingleItem = ({
   body,
   postID,
   postTitle,
+  createdByUsername,
 }) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const { editItem, isEditing, itemID, cancelEditItem } = useAppContext();
@@ -78,6 +79,7 @@ const DashboardSingleItem = ({
           editItem={editItem}
           postID={postID}
           updateItem={updateItem}
+          createdByUsername={createdByUsername}
         />
       )}
     </div>

@@ -13,7 +13,7 @@ const AllUserComments = () => {
   }, []);
 
   return (
-    <div className='mx-auto container mt-5 md:w-3/4 shadow-md border-t-2 border-indigo-400 rounded-t p-10'>
+    <div className='mx-auto container mt-5 shadow-md border-t-2 border-indigo-400 rounded-t p-10'>
       <div>Filter and Sort Container</div>
       <div className='grid grid-cols-3 uppercase font-bold mt-10'>
         <p className='text-center'>Post title</p>
