@@ -1,10 +1,19 @@
+import { useState } from 'react';
+import ConfirmationModal from '../../components/ConfirmationModal';
 import { useUserContext } from '../../context/user/user.context';
 
 const ProfileSettings = () => {
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const { user } = useUserContext();
 
   return (
     <div className='mx-auto container mt-5 md:w-3/4 shadow-md'>
+      {showConfirmationModal && (
+        <ConfirmationModal
+          setShowConfirmationModal={setShowConfirmationModal}
+          name={user.username}
+        />
+      )}
       <div className='bg-gray-100 p-4 bg-opacity-5 border-t-2 border-indigo-400 rounded-t'>
         <div className='max-w-sm mx-auto md:w-full md:mx-0'>
           <div className='inline-flex items-center space-x-4'>
@@ -125,7 +134,9 @@ const ProfileSettings = () => {
 
         <hr />
         <div className='w-full p-4 text-right text-red-500'>
-          <button className='inline-flex items-center focus:outline-none mr-4'>
+          <button
+            className='inline-flex items-center focus:outline-none mr-4'
+            onClick={() => setShowConfirmationModal(true)}>
             <svg
               fill='none'
               className='w-4 mr-2'
