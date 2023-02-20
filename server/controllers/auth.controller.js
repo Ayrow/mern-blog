@@ -1,4 +1,5 @@
 import User from '../models/User.js';
+import Comments from '../models/Comments.js';
 
 const registerUser = async (req, res) => {
   const { username, password, email } = req.body;
@@ -70,6 +71,11 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   const { id } = req.params;
+
+  await Comments.updateMany(
+    { createdBy: id },
+    { $set: { createdByUsername: 'Deleted User' } }
+  );
 
   await User.findOneAndDelete({ _id: id });
 

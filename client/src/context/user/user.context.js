@@ -102,7 +102,13 @@ const UserProvider = ({ children }) => {
   const deleteUser = async (id) => {
     try {
       await authFetch.delete(`/auth/user/${id}`);
-      fetchAllUsers();
+
+      console.log('user', user);
+      console.log('id', id);
+
+      if (user._id === id) {
+        logoutUser();
+      }
     } catch (error) {
       console.log('error', error);
     }

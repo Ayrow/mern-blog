@@ -4,7 +4,7 @@ import { useUserContext } from '../../context/user/user.context';
 
 const ProfileSettings = () => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const { user } = useUserContext();
+  const { user, deleteUser } = useUserContext();
 
   return (
     <div className='mx-auto container mt-5 md:w-3/4 shadow-md'>
@@ -12,6 +12,8 @@ const ProfileSettings = () => {
         <ConfirmationModal
           setShowConfirmationModal={setShowConfirmationModal}
           name={user.username}
+          deleteItem={deleteUser}
+          itemID={user._id}
         />
       )}
       <div className='bg-gray-100 p-4 bg-opacity-5 border-t-2 border-indigo-400 rounded-t'>
