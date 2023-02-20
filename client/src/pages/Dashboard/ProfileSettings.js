@@ -6,13 +6,18 @@ const ProfileSettings = () => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const { user, deleteUser } = useUserContext();
 
+  const deleteAccount = (id) => {
+    const userId = user._id;
+    deleteUser(id, userId);
+  };
+
   return (
     <div className='mx-auto container mt-5 md:w-3/4 shadow-md'>
       {showConfirmationModal && (
         <ConfirmationModal
           setShowConfirmationModal={setShowConfirmationModal}
           name={user.username}
-          deleteItem={deleteUser}
+          deleteItem={deleteAccount}
           itemID={user._id}
         />
       )}
