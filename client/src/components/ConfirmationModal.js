@@ -1,7 +1,6 @@
 const ConfirmationModal = ({
   setShowConfirmationModal,
   itemID,
-  isPost,
   deleteItem,
   name,
 }) => {

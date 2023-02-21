@@ -163,6 +163,14 @@ const PostsProvider = ({ children }) => {
     }
   };
 
+  const savePost = async (id) => {
+    try {
+      await authFetch.post('posts/userPosts/saved');
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
   return (
     <PostsContext.Provider
       value={{
@@ -178,6 +186,7 @@ const PostsProvider = ({ children }) => {
         updateComment,
         deleteComment,
         getAllComments,
+        savePost,
       }}>
       {children}
     </PostsContext.Provider>
