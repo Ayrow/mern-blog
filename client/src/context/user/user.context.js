@@ -71,7 +71,7 @@ const UserProvider = ({ children }) => {
       dispatch({ type: SETUP_USER_SUCCESS, payload: { user, token } });
       addUserToLocalStorage({ user, token });
     } catch (error) {
-      logoutUser();
+      console.log('error', error);
     }
   };
 
