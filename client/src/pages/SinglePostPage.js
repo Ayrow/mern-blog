@@ -32,8 +32,7 @@ const SinglePostPage = () => {
           savedPosts.includes(id) ? (
             <button
               type='button'
-              className=' bg-red-500 hover:bg-red-300 text-white px-3 py-1 rounded-lg float-right'
-              onClick={() => savePost(id)}>
+              className=' bg-red-500 hover:bg-red-300 text-white px-3 py-1 rounded-lg float-right'>
               Unsave
             </button>
           ) : (

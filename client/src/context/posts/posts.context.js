@@ -214,6 +214,14 @@ const PostsProvider = ({ children }) => {
     }
   };
 
+  const unsavePost = async (id) => {
+    try {
+      await authFetch.delete(`posts/userPosts/saved/${id}`);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
   const clearSavedPosts = () => {
     dispatch({ type: CLEAR_SAVED_POSTS });
     removeSavedPostsFromLocalStorage();
@@ -237,6 +245,7 @@ const PostsProvider = ({ children }) => {
         savePost,
         addSavedPostsToLocalStorage,
         clearSavedPosts,
+        unsavePost,
       }}>
       {children}
     </PostsContext.Provider>
