@@ -1,4 +1,5 @@
 import {
+  CLEAR_SAVED_POSTS,
   CREATE_POST_SUCCESS,
   DELETE_POST_SUCCESS,
   GET_ALL_POSTS_SUCCESS,
@@ -41,6 +42,12 @@ const postsReducer = (state, action) => {
       return {
         ...state,
         savedPosts: action.payload,
+      };
+
+    case CLEAR_SAVED_POSTS:
+      return {
+        ...state,
+        savedPosts: [],
       };
     default:
       throw new Error(`There is no action: ${action.type}`);

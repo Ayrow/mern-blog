@@ -1,8 +1,17 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { usePostsContext } from '../context/posts/posts.context';
 import { useUserContext } from '../context/user/user.context';
 
 const NavDropdown = ({ setIsDropdownOpen }) => {
   const { user, logoutUser } = useUserContext();
+  const { clearSavedPosts } = usePostsContext();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logoutUser();
+    clearSavedPosts();
+    navigate('/');
+  };
 
   return (
     <ul
@@ -66,7 +75,7 @@ const NavDropdown = ({ setIsDropdownOpen }) => {
           </li>
           <li>
             <button
-              onClick={logoutUser}
+              onClick={handleLogout}
               className='
               text-left
               text-sm

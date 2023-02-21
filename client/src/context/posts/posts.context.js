@@ -3,6 +3,7 @@ import postsReducer from './posts.reducer';
 import axios from 'axios';
 
 import {
+  CLEAR_SAVED_POSTS,
   CREATE_POST_SUCCESS,
   DELETE_POST_SUCCESS,
   GET_ALL_POSTS_SUCCESS,
@@ -22,7 +23,7 @@ const initialPostsState = {
   editID: null,
   singlePost: {},
   comments: [],
-  savedPosts: savedPosts || [],
+  savedPosts: savedPosts,
 };
 
 const PostsProvider = ({ children }) => {
@@ -56,7 +57,13 @@ const PostsProvider = ({ children }) => {
   );
 
   const addSavedPostsToLocalStorage = (savedPosts) => {
-    localStorage.setItem('savedPosts', savedPosts);
+    user
+      ? localStorage.setItem('savedPosts', savedPosts)
+      : localStorage.setItem('savedPosts', []);
+  };
+
+  const removeSavedPostsFromLocalStorage = () => {
+    localStorage.removeItem('savedPosts');
   };
 
   const addNewPost = async ({ title, postText, shortDescription }) => {
@@ -78,6 +85,27 @@ const PostsProvider = ({ children }) => {
       dispatch({ type: GET_ALL_POSTS_SUCCESS, payload: data });
     } catch (error) {
       console.log('error', error);
+    }
+  };
+
+  const checkIfPostSaved = (id) => {
+    const isSaved = state.savedPosts.includes(id);
+    if (isSaved) {
+      {
+        /*
+    
+      dispatch({
+        type: TOGGLE_SAVE_BUTTON,
+        payload: { color: 'text-red-700', text: 'Unsave' },
+      });
+    } else {
+      dispatch({
+        type: TOGGLE_SAVE_BUTTON,
+        payload: { color: '', text: 'Save' },
+      });
+    
+    */
+      }
     }
   };
 
@@ -186,6 +214,11 @@ const PostsProvider = ({ children }) => {
     }
   };
 
+  const clearSavedPosts = () => {
+    dispatch({ type: CLEAR_SAVED_POSTS });
+    removeSavedPostsFromLocalStorage();
+  };
+
   return (
     <PostsContext.Provider
       value={{
@@ -202,6 +235,8 @@ const PostsProvider = ({ children }) => {
         deleteComment,
         getAllComments,
         savePost,
+        addSavedPostsToLocalStorage,
+        clearSavedPosts,
       }}>
       {children}
     </PostsContext.Provider>
