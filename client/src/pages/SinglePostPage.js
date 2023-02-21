@@ -7,8 +7,14 @@ import { useUserContext } from '../context/user/user.context';
 import CommentForm from '../components/CommentForm';
 
 const SinglePostPage = () => {
-  const { getSinglePost, singlePost, getPostComments, comments, savePost } =
-    usePostsContext();
+  const {
+    getSinglePost,
+    singlePost,
+    getPostComments,
+    comments,
+    savedPosts,
+    savePost,
+  } = usePostsContext();
   const navigate = useNavigate();
   const { user } = useUserContext();
   let { id } = useParams();
@@ -22,12 +28,22 @@ const SinglePostPage = () => {
   return (
     <div className=''>
       <div className=' bg-gray-200 m-10 p-10 rounded-lg relative'>
-        <button
-          type='button'
-          className=' bg-red-500 hover:bg-red-300 text-white px-3 py-1 rounded-lg float-right'
-          onClick={() => savePost(id)}>
-          Save
-        </button>
+        {savedPosts.includes(id) ? (
+          <button
+            type='button'
+            className=' bg-red-500 hover:bg-red-300 text-white px-3 py-1 rounded-lg float-right'
+            onClick={() => savePost(id)}>
+            Unsave
+          </button>
+        ) : (
+          <button
+            type='button'
+            className=' bg-red-500 hover:bg-red-300 text-white px-3 py-1 rounded-lg float-right'
+            onClick={() => savePost(id)}>
+            Save
+          </button>
+        )}
+
         <div>
           <h2 className='text-center text-2xl'>{singlePost.title}</h2>
         </div>

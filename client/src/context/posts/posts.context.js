@@ -8,8 +8,13 @@ import {
   GET_ALL_POSTS_SUCCESS,
   GET_COMMENTS_SUCCESS,
   GET_SINGLE_POST_SUCCESS,
+  SAVE_POST_SUCCESS,
 } from '../actions';
 import { useUserContext } from '../user/user.context';
+
+const PostsContext = createContext();
+
+const savedPosts = localStorage.getItem('savedPosts');
 
 const initialPostsState = {
   posts: [],
@@ -17,14 +22,12 @@ const initialPostsState = {
   editID: null,
   singlePost: {},
   comments: [],
-  savedPosts: [],
+  savedPosts: savedPosts || [],
 };
-
-const PostsContext = createContext();
 
 const PostsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(postsReducer, initialPostsState);
-  const { token } = useUserContext();
+  const { token, user } = useUserContext();
 
   const authFetch = axios.create({
     baseURL: '/api/v1',
@@ -52,6 +55,10 @@ const PostsProvider = ({ children }) => {
     }
   );
 
+  const addSavedPostsToLocalStorage = (savedPosts) => {
+    localStorage.setItem('savedPosts', savedPosts);
+  };
+
   const addNewPost = async ({ title, postText, shortDescription }) => {
     try {
       const { data } = await authFetch.post('/posts/admin', {
@@ -77,7 +84,11 @@ const PostsProvider = ({ children }) => {
   const getSinglePost = async (id) => {
     try {
       const { data } = await authFetch.get(`/posts/${id}`);
-      dispatch({ type: GET_SINGLE_POST_SUCCESS, payload: data.post });
+
+      dispatch({
+        type: GET_SINGLE_POST_SUCCESS,
+        payload: data.post,
+      });
     } catch (error) {
       console.log('error', error);
     }
@@ -167,7 +178,9 @@ const PostsProvider = ({ children }) => {
   const savePost = async (id) => {
     try {
       const { data } = await authFetch.post('posts/userPosts/saved', { id });
-      console.log('data', data);
+      const { userSavedPosts } = data;
+      dispatch({ type: SAVE_POST_SUCCESS, payload: userSavedPosts });
+      addSavedPostsToLocalStorage(userSavedPosts);
     } catch (error) {
       console.log('error', error);
     }

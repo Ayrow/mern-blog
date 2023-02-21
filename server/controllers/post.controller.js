@@ -54,9 +54,7 @@ const savePost = async (req, res) => {
 
   const userSavedPosts = user.savedPosts;
 
-  console.log('userSavedPosts', userSavedPosts);
-
-  res.status(200).json(userSavedPosts);
+  res.status(200).json({ userSavedPosts });
 };
 
 const getAllSavedPosts = async (req, res) => {

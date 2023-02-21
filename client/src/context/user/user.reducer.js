@@ -2,6 +2,7 @@ import {
   SETUP_USER_SUCCESS,
   LOGOUT_USER_SUCCESS,
   FETCH_ALL_USERS_SUCCESS,
+  SAVE_POST_SUCCESS,
 } from '../actions';
 
 const userReducer = (state, action) => {
@@ -23,6 +24,7 @@ const userReducer = (state, action) => {
         ...state,
         users: action.payload,
       };
+
     default:
       throw new Error(`There is no action: ${action.type}`);
   }

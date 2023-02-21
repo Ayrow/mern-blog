@@ -4,6 +4,7 @@ import {
   GET_ALL_POSTS_SUCCESS,
   GET_COMMENTS_SUCCESS,
   GET_SINGLE_POST_SUCCESS,
+  SAVE_POST_SUCCESS,
 } from '../actions';
 
 const postsReducer = (state, action) => {
@@ -35,6 +36,11 @@ const postsReducer = (state, action) => {
       return {
         ...state,
         comments: action.payload,
+      };
+    case SAVE_POST_SUCCESS:
+      return {
+        ...state,
+        savedPosts: action.payload,
       };
     default:
       throw new Error(`There is no action: ${action.type}`);
