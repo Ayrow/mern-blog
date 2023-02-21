@@ -17,6 +17,7 @@ const initialPostsState = {
   editID: null,
   singlePost: {},
   comments: [],
+  savedPosts: [],
 };
 
 const PostsContext = createContext();
@@ -165,7 +166,8 @@ const PostsProvider = ({ children }) => {
 
   const savePost = async (id) => {
     try {
-      await authFetch.post('posts/userPosts/saved');
+      const { data } = await authFetch.post('posts/userPosts/saved', { id });
+      console.log('data', data);
     } catch (error) {
       console.log('error', error);
     }
