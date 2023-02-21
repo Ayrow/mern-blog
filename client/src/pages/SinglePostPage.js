@@ -28,19 +28,27 @@ const SinglePostPage = () => {
   return (
     <div className=''>
       <div className=' bg-gray-200 m-10 p-10 rounded-lg relative'>
-        {savedPosts.includes(id) ? (
-          <button
-            type='button'
-            className=' bg-red-500 hover:bg-red-300 text-white px-3 py-1 rounded-lg float-right'
-            onClick={() => savePost(id)}>
-            Unsave
-          </button>
+        {user ? (
+          savedPosts.includes(id) ? (
+            <button
+              type='button'
+              className=' bg-red-500 hover:bg-red-300 text-white px-3 py-1 rounded-lg float-right'
+              onClick={() => savePost(id)}>
+              Unsave
+            </button>
+          ) : (
+            <button
+              type='button'
+              className=' bg-red-500 hover:bg-red-300 text-white px-3 py-1 rounded-lg float-right'
+              onClick={() => savePost(id)}>
+              Save
+            </button>
+          )
         ) : (
           <button
             type='button'
-            className=' bg-red-500 hover:bg-red-300 text-white px-3 py-1 rounded-lg float-right'
-            onClick={() => savePost(id)}>
-            Save
+            className=' bg-red-500 hover:bg-red-300 text-white px-3 py-1 rounded-lg float-right'>
+            Create an account to save the post
           </button>
         )}
 
