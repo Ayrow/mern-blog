@@ -40,38 +40,4 @@ const updatePost = async (req, res) => {
   res.status(200).json({ msg: 'updated Post' });
 };
 
-const savePost = async (req, res) => {
-  const { id } = req.body;
-
-  const user = await User.findOne({ _id: req.user.userId });
-
-  if (!user) {
-    throw Error('You need an account to save a post');
-  }
-
-  user.savedPosts.addToSet(id);
-  await user.save();
-
-  const userSavedPosts = user.savedPosts;
-
-  res.status(200).json({ userSavedPosts });
-};
-
-const getAllSavedPosts = async (req, res) => {
-  res.status(200).json({ msg: 'get all saved posts' });
-};
-
-const deleteSavedPost = async (req, res) => {
-  res.status(200).json({ msg: 'delete saved post' });
-};
-
-export {
-  getAllPosts,
-  addPost,
-  getSinglePost,
-  deletePost,
-  savePost,
-  getAllSavedPosts,
-  deleteSavedPost,
-  updatePost,
-};
+export { getAllPosts, addPost, getSinglePost, deletePost, updatePost };

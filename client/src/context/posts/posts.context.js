@@ -3,13 +3,11 @@ import postsReducer from './posts.reducer';
 import axios from 'axios';
 
 import {
-  CLEAR_SAVED_POSTS,
   CREATE_POST_SUCCESS,
   DELETE_POST_SUCCESS,
   GET_ALL_POSTS_SUCCESS,
   GET_COMMENTS_SUCCESS,
   GET_SINGLE_POST_SUCCESS,
-  SAVE_POST_SUCCESS,
 } from '../actions';
 import { useUserContext } from '../user/user.context';
 
@@ -56,16 +54,6 @@ const PostsProvider = ({ children }) => {
     }
   );
 
-  const addSavedPostsToLocalStorage = (savedPosts) => {
-    user
-      ? localStorage.setItem('savedPosts', savedPosts)
-      : localStorage.setItem('savedPosts', []);
-  };
-
-  const removeSavedPostsFromLocalStorage = () => {
-    localStorage.removeItem('savedPosts');
-  };
-
   const addNewPost = async ({ title, postText, shortDescription }) => {
     try {
       const { data } = await authFetch.post('/posts/admin', {
@@ -85,27 +73,6 @@ const PostsProvider = ({ children }) => {
       dispatch({ type: GET_ALL_POSTS_SUCCESS, payload: data });
     } catch (error) {
       console.log('error', error);
-    }
-  };
-
-  const checkIfPostSaved = (id) => {
-    const isSaved = state.savedPosts.includes(id);
-    if (isSaved) {
-      {
-        /*
-    
-      dispatch({
-        type: TOGGLE_SAVE_BUTTON,
-        payload: { color: 'text-red-700', text: 'Unsave' },
-      });
-    } else {
-      dispatch({
-        type: TOGGLE_SAVE_BUTTON,
-        payload: { color: '', text: 'Save' },
-      });
-    
-    */
-      }
     }
   };
 
@@ -203,30 +170,6 @@ const PostsProvider = ({ children }) => {
     }
   };
 
-  const savePost = async (id) => {
-    try {
-      const { data } = await authFetch.post('posts/userPosts/saved', { id });
-      const { userSavedPosts } = data;
-      dispatch({ type: SAVE_POST_SUCCESS, payload: userSavedPosts });
-      addSavedPostsToLocalStorage(userSavedPosts);
-    } catch (error) {
-      console.log('error', error);
-    }
-  };
-
-  const unsavePost = async (id) => {
-    try {
-      await authFetch.delete(`posts/userPosts/saved/${id}`);
-    } catch (error) {
-      console.log('error', error);
-    }
-  };
-
-  const clearSavedPosts = () => {
-    dispatch({ type: CLEAR_SAVED_POSTS });
-    removeSavedPostsFromLocalStorage();
-  };
-
   return (
     <PostsContext.Provider
       value={{
@@ -242,10 +185,6 @@ const PostsProvider = ({ children }) => {
         updateComment,
         deleteComment,
         getAllComments,
-        savePost,
-        addSavedPostsToLocalStorage,
-        clearSavedPosts,
-        unsavePost,
       }}>
       {children}
     </PostsContext.Provider>

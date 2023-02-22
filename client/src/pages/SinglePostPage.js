@@ -7,16 +7,10 @@ import { useUserContext } from '../context/user/user.context';
 import CommentForm from '../components/CommentForm';
 
 const SinglePostPage = () => {
-  const {
-    getSinglePost,
-    singlePost,
-    getPostComments,
-    comments,
-    savedPosts,
-    savePost,
-  } = usePostsContext();
+  const { getSinglePost, singlePost, getPostComments, comments } =
+    usePostsContext();
   const navigate = useNavigate();
-  const { user } = useUserContext();
+  const { user, savePost } = useUserContext();
   let { id } = useParams();
   const [showCommmentForm, setShowCommentForm] = useState(false);
 
@@ -29,7 +23,7 @@ const SinglePostPage = () => {
     <div className=''>
       <div className=' bg-gray-200 m-10 p-10 rounded-lg relative'>
         {user ? (
-          savedPosts.includes(id) ? (
+          true ? (
             <button
               type='button'
               className=' bg-red-500 hover:bg-red-300 text-white px-3 py-1 rounded-lg float-right'>

@@ -5,6 +5,9 @@ import {
   deleteUser,
   updateUser,
   getAllUsers,
+  savePost,
+  getAllSavedPosts,
+  deleteSavedPost,
 } from '../controllers/auth.controller.js';
 
 import authenticateUser from '../middleware/auth.js';
@@ -18,5 +21,11 @@ router
   .route('/user/:id')
   .patch(authenticateUser, updateUser)
   .delete(authenticateUser, deleteUser);
+
+router
+  .route('/savedPosts')
+  .post(authenticateUser, savePost)
+  .get(authenticateUser, getAllSavedPosts);
+router.route('/savedPosts/:id').delete(authenticateUser, deleteSavedPost);
 
 export default router;
