@@ -7,33 +7,34 @@ import { useUserContext } from '../context/user/user.context';
 import CommentForm from '../components/CommentForm';
 
 const SinglePostPage = () => {
-  const { getSinglePost, singlePost, getPostComments, comments } =
+  const { getSinglePost, singlePost, getPostComments, comments, isPostSaved } =
     usePostsContext();
   const navigate = useNavigate();
-  const { user, savePost } = useUserContext();
+  const { user, saveOrUnsavePost } = useUserContext();
   let { id } = useParams();
   const [showCommmentForm, setShowCommentForm] = useState(false);
 
   useEffect(() => {
     getSinglePost(id);
     getPostComments(id);
-  }, [comments]);
+  }, [comments, user]);
 
   return (
     <div className=''>
       <div className=' bg-gray-200 m-10 p-10 rounded-lg relative'>
         {user ? (
-          true ? (
+          isPostSaved ? (
             <button
               type='button'
-              className=' bg-red-500 hover:bg-red-300 text-white px-3 py-1 rounded-lg float-right'>
+              className=' bg-red-500 hover:bg-red-300 text-white px-3 py-1 rounded-lg float-right'
+              onClick={() => saveOrUnsavePost({ id, save: false })}>
               Unsave
             </button>
           ) : (
             <button
               type='button'
               className=' bg-red-500 hover:bg-red-300 text-white px-3 py-1 rounded-lg float-right'
-              onClick={() => savePost(id)}>
+              onClick={() => saveOrUnsavePost({ id, save: true })}>
               Save
             </button>
           )

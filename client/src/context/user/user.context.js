@@ -4,6 +4,7 @@ import {
   SETUP_USER_SUCCESS,
   LOGOUT_USER_SUCCESS,
   FETCH_ALL_USERS_SUCCESS,
+  SAVE_POST_SUCCESS,
 } from '../actions';
 import axios from 'axios';
 import { useAppContext } from '../app/app.context';
@@ -18,6 +19,7 @@ export const initialUserState = {
   token: token,
   users: [],
   userRoles: ['admin', 'follower'],
+  savedPosts: [],
 };
 
 const UserProvider = ({ children }) => {
@@ -113,6 +115,26 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  const saveOrUnsavePost = async ({ id, save }) => {
+    if (save) {
+      try {
+        const { data } = await authFetch.post('/auth/savedPosts', { id });
+        dispatch({ type: SAVE_POST_SUCCESS, payload: data });
+        user.saved.push(id);
+      } catch (error) {
+        console.log('error', error);
+      }
+    } else {
+      try {
+        await authFetch.delete(`/auth/savedPosts/${id}`);
+        let newList = user.saved.filter((item) => item !== id);
+        dispatch({ type: SAVE_POST_SUCCESS, payload: newList });
+      } catch (error) {
+        console.log('error', error);
+      }
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -123,6 +145,7 @@ const UserProvider = ({ children }) => {
         updateUserFromAdmin,
         deleteUser,
         authFetch,
+        saveOrUnsavePost,
       }}>
       {children}
     </UserContext.Provider>

@@ -12,6 +12,7 @@ const userReducer = (state, action) => {
         ...state,
         user: action.payload.user,
         token: action.payload.token,
+        savedPosts: action.payload.user.savedPosts,
       };
     case LOGOUT_USER_SUCCESS:
       return {
@@ -23,6 +24,11 @@ const userReducer = (state, action) => {
       return {
         ...state,
         users: action.payload,
+      };
+    case SAVE_POST_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
       };
 
     default:

@@ -13,15 +13,13 @@ import { useUserContext } from '../user/user.context';
 
 const PostsContext = createContext();
 
-const savedPosts = localStorage.getItem('savedPosts');
-
 const initialPostsState = {
   posts: [],
   isEditing: false,
   editID: null,
   singlePost: {},
   comments: [],
-  savedPosts: savedPosts,
+  isPostSaved: false,
 };
 
 const PostsProvider = ({ children }) => {
@@ -76,14 +74,23 @@ const PostsProvider = ({ children }) => {
     }
   };
 
+  const checkIfPostIsSaved = (id) => {
+    if (user) {
+      user.savedPosts.includes(id);
+      state.isPostSaved = true;
+    } else {
+      state.isPostSaved = false;
+    }
+  };
+
   const getSinglePost = async (id) => {
     try {
       const { data } = await authFetch.get(`/posts/${id}`);
-
       dispatch({
         type: GET_SINGLE_POST_SUCCESS,
         payload: data.post,
       });
+      checkIfPostIsSaved(id);
     } catch (error) {
       console.log('error', error);
     }

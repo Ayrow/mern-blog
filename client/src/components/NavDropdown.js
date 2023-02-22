@@ -1,15 +1,12 @@
 import { NavLink, useNavigate } from 'react-router-dom';
-import { usePostsContext } from '../context/posts/posts.context';
 import { useUserContext } from '../context/user/user.context';
 
 const NavDropdown = ({ setIsDropdownOpen }) => {
   const { user, logoutUser } = useUserContext();
-  const { clearSavedPosts } = usePostsContext();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logoutUser();
-    clearSavedPosts();
     navigate('/');
   };
 

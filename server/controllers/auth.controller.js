@@ -104,9 +104,7 @@ const savePost = async (req, res) => {
   user.savedPosts.addToSet(id);
   await user.save();
 
-  const userSavedPosts = user.savedPosts;
-
-  res.status(200).json({ userSavedPosts });
+  res.status(200).json(user);
 };
 
 const getAllSavedPosts = async (req, res) => {

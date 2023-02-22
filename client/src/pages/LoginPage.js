@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { usePostsContext } from '../context/posts/posts.context';
 import { useUserContext } from '../context/user/user.context';
 
 const LoginPage = () => {
   const { user, setupUser } = useUserContext();
-  const { addSavedPostsToLocalStorage } = usePostsContext();
   const navigate = useNavigate();
   const [values, setValues] = useState({
     username: '',
@@ -34,7 +32,6 @@ const LoginPage = () => {
       if (isMember) {
         const endpoint = 'loginUser';
         setupUser({ username, email, password, endpoint });
-        addSavedPostsToLocalStorage(user.savedPosts);
         navigate('/posts');
       } else {
         if (!username) {
