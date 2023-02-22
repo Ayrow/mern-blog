@@ -112,7 +112,14 @@ const getAllSavedPosts = async (req, res) => {
 };
 
 const deleteSavedPost = async (req, res) => {
-  res.status(200).json({ msg: 'delete saved post' });
+  const { id } = req.params;
+
+  const user = await User.findOne({ _id: req.user.userId });
+
+  user.savedPosts.pull(id);
+  await user.save();
+
+  res.status(200).json(user);
 };
 
 export {
