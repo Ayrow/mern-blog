@@ -117,6 +117,7 @@ const deleteSavedPost = async (req, res) => {
   const user = await User.findOne({ _id: req.user.userId });
 
   user.savedPosts.pull(id);
+
   await user.save();
 
   res.status(200).json(user);

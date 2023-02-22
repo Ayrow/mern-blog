@@ -17,7 +17,7 @@ const SinglePostPage = () => {
   useEffect(() => {
     getSinglePost(id);
     getPostComments(id);
-  }, [comments, user]);
+  }, [user, isPostSaved]);
 
   return (
     <div className=''>

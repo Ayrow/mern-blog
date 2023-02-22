@@ -5,7 +5,6 @@ import {
   LOGOUT_USER_SUCCESS,
   FETCH_ALL_USERS_SUCCESS,
   SAVE_POST_SUCCESS,
-  REMOVE_SAVE_POST_SUCCESS,
 } from '../actions';
 import axios from 'axios';
 import { useAppContext } from '../app/app.context';
@@ -14,13 +13,14 @@ const UserContext = createContext();
 
 const user = localStorage.getItem('user');
 const token = localStorage.getItem('token');
+const savedPosts = localStorage.getItem('savedPosts');
 
 export const initialUserState = {
   user: user ? JSON.parse(user) : null,
   token: token,
   users: [],
   userRoles: ['admin', 'follower'],
-  savedPosts: [],
+  savedPosts: savedPosts || [],
 };
 
 const UserProvider = ({ children }) => {
@@ -63,6 +63,14 @@ const UserProvider = ({ children }) => {
     localStorage.removeItem('token');
   };
 
+  const addSavedPostToLocalStorage = (savedPosts) => {
+    localStorage.setItem('savedPosts', savedPosts);
+  };
+
+  const removeSavedPostFromLocalStorage = () => {
+    localStorage.removeItem('savedPosts');
+  };
+
   const setupUser = async ({ username, password, email, endpoint }) => {
     try {
       const { data } = await authFetch.post(`/auth/${endpoint}`, {
@@ -73,6 +81,7 @@ const UserProvider = ({ children }) => {
       const { user, token } = data;
       dispatch({ type: SETUP_USER_SUCCESS, payload: { user, token } });
       addUserToLocalStorage({ user, token });
+      addSavedPostToLocalStorage(user.savedPosts);
     } catch (error) {
       console.log('error', error);
     }
@@ -81,6 +90,7 @@ const UserProvider = ({ children }) => {
   const logoutUser = () => {
     dispatch({ type: LOGOUT_USER_SUCCESS });
     removeUserFromLocalStorage();
+    removeSavedPostFromLocalStorage();
   };
 
   const fetchAllUsers = async () => {
@@ -121,13 +131,15 @@ const UserProvider = ({ children }) => {
       try {
         const { data } = await authFetch.post('/auth/savedPosts', { id });
         dispatch({ type: SAVE_POST_SUCCESS, payload: data });
+        addSavedPostToLocalStorage(data.savedPosts);
       } catch (error) {
         console.log('error', error);
       }
     } else {
       try {
         const { data } = await authFetch.delete(`/auth/savedPosts/${id}`);
-        dispatch({ type: REMOVE_SAVE_POST_SUCCESS, payload: data });
+        dispatch({ type: SAVE_POST_SUCCESS, payload: data });
+        addSavedPostToLocalStorage(data.savedPosts);
       } catch (error) {
         console.log('error', error);
       }

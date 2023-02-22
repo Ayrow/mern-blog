@@ -25,7 +25,7 @@ const initialPostsState = {
 
 const PostsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(postsReducer, initialPostsState);
-  const { token, user } = useUserContext();
+  const { token, user, savedPosts } = useUserContext();
 
   const authFetch = axios.create({
     baseURL: '/api/v1',
@@ -77,7 +77,7 @@ const PostsProvider = ({ children }) => {
 
   const checkIfPostIsSaved = (id) => {
     if (user) {
-      user.savedPosts.includes(id)
+      savedPosts.includes(id)
         ? dispatch({ type: TOGGLE_SAVE_BUTTON, payload: true })
         : dispatch({ type: TOGGLE_SAVE_BUTTON, payload: false });
     } else {
@@ -87,12 +87,12 @@ const PostsProvider = ({ children }) => {
 
   const getSinglePost = async (id) => {
     try {
+      checkIfPostIsSaved(id);
       const { data } = await authFetch.get(`/posts/${id}`);
       dispatch({
         type: GET_SINGLE_POST_SUCCESS,
         payload: data.post,
       });
-      checkIfPostIsSaved(id);
     } catch (error) {
       console.log('error', error);
     }
