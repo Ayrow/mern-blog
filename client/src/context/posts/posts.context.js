@@ -126,6 +126,7 @@ const PostsProvider = ({ children }) => {
         postID,
         commentMessage,
       });
+      getPostComments(postID);
     } catch (error) {
       console.log('error', error);
     }
@@ -143,7 +144,6 @@ const PostsProvider = ({ children }) => {
   const getAllComments = async () => {
     try {
       const { data } = await authFetch.get('comments');
-      console.log(data);
       dispatch({ type: GET_COMMENTS_SUCCESS, payload: data });
     } catch (error) {
       console.log(error);
