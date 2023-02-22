@@ -29,6 +29,7 @@ const userReducer = (state, action) => {
       return {
         ...state,
         user: action.payload,
+        savedPosts: action.payload.savedPosts,
       };
 
     default:

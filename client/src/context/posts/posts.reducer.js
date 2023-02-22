@@ -4,6 +4,7 @@ import {
   GET_ALL_POSTS_SUCCESS,
   GET_COMMENTS_SUCCESS,
   GET_SINGLE_POST_SUCCESS,
+  TOGGLE_SAVE_BUTTON,
 } from '../actions';
 
 const postsReducer = (state, action) => {
@@ -36,6 +37,12 @@ const postsReducer = (state, action) => {
         ...state,
         comments: action.payload,
       };
+    case TOGGLE_SAVE_BUTTON: {
+      return {
+        ...state,
+        isPostSaved: action.payload,
+      };
+    }
     default:
       throw new Error(`There is no action: ${action.type}`);
   }

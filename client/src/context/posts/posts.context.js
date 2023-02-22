@@ -8,6 +8,7 @@ import {
   GET_ALL_POSTS_SUCCESS,
   GET_COMMENTS_SUCCESS,
   GET_SINGLE_POST_SUCCESS,
+  TOGGLE_SAVE_BUTTON,
 } from '../actions';
 import { useUserContext } from '../user/user.context';
 
@@ -76,10 +77,11 @@ const PostsProvider = ({ children }) => {
 
   const checkIfPostIsSaved = (id) => {
     if (user) {
-      user.savedPosts.includes(id);
-      state.isPostSaved = true;
+      user.savedPosts.includes(id)
+        ? dispatch({ type: TOGGLE_SAVE_BUTTON, payload: true })
+        : dispatch({ type: TOGGLE_SAVE_BUTTON, payload: false });
     } else {
-      state.isPostSaved = false;
+      dispatch({ type: TOGGLE_SAVE_BUTTON, payload: false });
     }
   };
 

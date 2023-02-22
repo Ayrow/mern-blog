@@ -5,6 +5,7 @@ import {
   LOGOUT_USER_SUCCESS,
   FETCH_ALL_USERS_SUCCESS,
   SAVE_POST_SUCCESS,
+  REMOVE_SAVE_POST_SUCCESS,
 } from '../actions';
 import axios from 'axios';
 import { useAppContext } from '../app/app.context';
@@ -120,15 +121,13 @@ const UserProvider = ({ children }) => {
       try {
         const { data } = await authFetch.post('/auth/savedPosts', { id });
         dispatch({ type: SAVE_POST_SUCCESS, payload: data });
-        user.saved.push(id);
       } catch (error) {
         console.log('error', error);
       }
     } else {
       try {
-        await authFetch.delete(`/auth/savedPosts/${id}`);
-        let newList = user.saved.filter((item) => item !== id);
-        dispatch({ type: SAVE_POST_SUCCESS, payload: newList });
+        const { data } = await authFetch.delete(`/auth/savedPosts/${id}`);
+        dispatch({ type: REMOVE_SAVE_POST_SUCCESS, payload: data });
       } catch (error) {
         console.log('error', error);
       }
