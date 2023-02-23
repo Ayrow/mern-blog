@@ -5,6 +5,7 @@ import {
   LOGOUT_USER_SUCCESS,
   FETCH_ALL_USERS_SUCCESS,
   SAVE_POST_SUCCESS,
+  GET_ALL_SAVED_POSTS_SUCCESS,
 } from '../actions';
 import axios from 'axios';
 import { useAppContext } from '../app/app.context';
@@ -21,6 +22,7 @@ export const initialUserState = {
   users: [],
   userRoles: ['admin', 'follower'],
   savedPosts: savedPosts || [],
+  userAllSavedPosts: [],
 };
 
 const UserProvider = ({ children }) => {
@@ -149,7 +151,11 @@ const UserProvider = ({ children }) => {
   const getAllSavedPosts = async () => {
     try {
       const { data } = await authFetch.get('/auth/savedPosts');
-      dispatch({ type: SAVE_POST_SUCCESS, payload: data });
+      const { savedPostsID, posts } = data;
+      dispatch({
+        type: GET_ALL_SAVED_POSTS_SUCCESS,
+        payload: { savedPostsID },
+      });
       addSavedPostToLocalStorage(data.savedPosts);
     } catch (error) {
       console.log('error', error);

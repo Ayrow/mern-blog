@@ -3,6 +3,7 @@ import {
   LOGOUT_USER_SUCCESS,
   FETCH_ALL_USERS_SUCCESS,
   SAVE_POST_SUCCESS,
+  GET_ALL_SAVED_POSTS_SUCCESS,
 } from '../actions';
 
 const userReducer = (state, action) => {
@@ -30,6 +31,12 @@ const userReducer = (state, action) => {
         ...state,
         user: action.payload,
         savedPosts: action.payload.savedPosts,
+      };
+    case GET_ALL_SAVED_POSTS_SUCCESS:
+      return {
+        ...state,
+        savedPosts: action.payload.savedPostsID,
+        userAllSavedPosts: action.payload.posts,
       };
 
     default:
