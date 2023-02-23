@@ -102,12 +102,10 @@ const savePost = async (req, res) => {
     throw Error('You need an account to save a post');
   }
 
-  const post = await BlogPost.findOne({ _id: id });
-
-  user.savedPosts.addToSet(post);
+  user.savedPosts.addToSet(id);
   await user.save();
 
-  res.status(200).json({ user, post });
+  res.status(200).json(user);
 };
 
 const getAllSavedPosts = async (req, res) => {

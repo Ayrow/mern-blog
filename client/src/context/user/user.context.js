@@ -154,9 +154,9 @@ const UserProvider = ({ children }) => {
       const { savedPostsID, posts } = data;
       dispatch({
         type: GET_ALL_SAVED_POSTS_SUCCESS,
-        payload: { savedPostsID },
+        payload: { savedPostsID, posts },
       });
-      addSavedPostToLocalStorage(data.savedPosts);
+      addSavedPostToLocalStorage(savedPostsID);
     } catch (error) {
       console.log('error', error);
     }

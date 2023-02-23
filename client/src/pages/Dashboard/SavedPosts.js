@@ -1,12 +1,18 @@
+import { useEffect } from 'react';
 import DashboardSingleItem from '../../components/DashboardSingleItem';
 import { useUserContext } from '../../context/user/user.context';
 
 const SavedPosts = () => {
-  const { saveOrUnsavePost, userAllSavedPosts } = useUserContext();
+  const { saveOrUnsavePost, getAllSavedPosts, userAllSavedPosts } =
+    useUserContext();
 
   const deleteSavedPost = (id) => {
     saveOrUnsavePost({ id, save: false });
   };
+
+  useEffect(() => {
+    getAllSavedPosts();
+  }, []);
 
   return (
     <div className='mx-auto container mt-5 md:w-3/4 shadow-md border-t-2 border-indigo-400 rounded-t p-10'>
