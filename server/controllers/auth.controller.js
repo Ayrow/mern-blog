@@ -1,5 +1,6 @@
 import User from '../models/User.js';
 import Comments from '../models/Comments.js';
+import BlogPost from '../models/BlogPost.js';
 
 const registerUser = async (req, res) => {
   const { username, password, email } = req.body;
@@ -108,7 +109,16 @@ const savePost = async (req, res) => {
 };
 
 const getAllSavedPosts = async (req, res) => {
-  res.status(200).json({ msg: 'get all saved posts' });
+  const user = await User.findOne({ _id: req.user.userId });
+
+  if (!user) {
+    throw Error('You need an account to see saved posts');
+  }
+
+  const savedPostsID = user.savedPosts;
+  const posts = await BlogPost.find({ _id: savedPostsID });
+
+  res.status(200).json({ savedPostsID, posts });
 };
 
 const deleteSavedPost = async (req, res) => {
