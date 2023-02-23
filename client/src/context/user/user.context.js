@@ -146,6 +146,16 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  const getAllSavedPosts = async () => {
+    try {
+      const { data } = await authFetch.get('/auth/savedPosts');
+      dispatch({ type: SAVE_POST_SUCCESS, payload: data });
+      addSavedPostToLocalStorage(data.savedPosts);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -157,6 +167,7 @@ const UserProvider = ({ children }) => {
         deleteUser,
         authFetch,
         saveOrUnsavePost,
+        getAllSavedPosts,
       }}>
       {children}
     </UserContext.Provider>
