@@ -1,4 +1,13 @@
+import DashboardSingleItem from '../../components/DashboardSingleItem';
+import { useUserContext } from '../../context/user/user.context';
+
 const SavedPosts = () => {
+  const { saveOrUnsavePost } = useUserContext();
+
+  const deleteSavedPost = (id) => {
+    saveOrUnsavePost({ id, save: false });
+  };
+
   return (
     <div className='mx-auto container mt-5 md:w-3/4 shadow-md border-t-2 border-indigo-400 rounded-t p-10'>
       <div>Filter and Sort Container</div>
@@ -15,7 +24,7 @@ const SavedPosts = () => {
               id={_id}
               name={title}
               isPost={true}
-              deleteItem={deletePost}
+              deleteItem={deleteSavedPost}
               shortDescription={shortDescription}
               body={postText}
             />
