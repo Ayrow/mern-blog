@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
-import DashboardSingleItem from '../../components/DashboardSingleItem';
+import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../context/user/user.context';
 
 const SavedPosts = () => {
   const { saveOrUnsavePost, getAllSavedPosts, userAllSavedPosts } =
     useUserContext();
+  const navigate = useNavigate();
 
   const deleteSavedPost = (id) => {
     saveOrUnsavePost({ id, save: false });
@@ -23,17 +24,23 @@ const SavedPosts = () => {
       </div>
       <div className='flex flex-col gap-5'>
         {userAllSavedPosts.map((item) => {
-          const { title, _id, shortDescription, postText } = item;
+          const { title, _id } = item;
           return (
-            <DashboardSingleItem
-              key={_id}
-              id={_id}
-              name={title}
-              isPost={true}
-              deleteItem={deleteSavedPost}
-              shortDescription={shortDescription}
-              body={postText}
-            />
+            <div className='mt-5 border grid grid-cols-2 items-center px-10 py-5'>
+              <h3 className=' font-semibold text-center'>{title}</h3>
+              <div className='flex gap-5 justify-center'>
+                <button
+                  onClick={() => navigate(`/posts/${_id}`)}
+                  className=' bg-blue-400 hover:bg-blue-300 px-4 py-1 rounded-lg'>
+                  See
+                </button>
+                <button
+                  className=' bg-red-400 hover:bg-red-300 px-4 py-1 rounded-lg'
+                  onClick={() => deleteSavedPost(_id)}>
+                  Delete
+                </button>
+              </div>
+            </div>
           );
         })}
       </div>
