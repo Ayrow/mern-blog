@@ -2,7 +2,7 @@ import DashboardSingleItem from '../../components/DashboardSingleItem';
 import { useUserContext } from '../../context/user/user.context';
 
 const SavedPosts = () => {
-  const { saveOrUnsavePost } = useUserContext();
+  const { saveOrUnsavePost, userAllSavedPosts } = useUserContext();
 
   const deleteSavedPost = (id) => {
     saveOrUnsavePost({ id, save: false });
@@ -16,7 +16,7 @@ const SavedPosts = () => {
         <p className='text-center'>Actions</p>
       </div>
       <div className='flex flex-col gap-5'>
-        {posts.map((item) => {
+        {userAllSavedPosts.map((item) => {
           const { title, _id, shortDescription, postText } = item;
           return (
             <DashboardSingleItem
