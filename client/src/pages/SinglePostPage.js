@@ -20,7 +20,20 @@ const SinglePostPage = () => {
   }, [user, isPostSaved]);
 
   return (
-    <div className=''>
+    <div>
+      <button
+        onClick={() => navigate(-1)}
+        className='bg-blue-500
+        hover:bg-blue-300
+        text-white
+        px-3
+        py-1
+        rounded-lg
+        mt-10
+        ml-10
+        '>
+        Back
+      </button>
       <div className=' bg-gray-200 m-10 p-10 rounded-lg relative'>
         {user ? (
           isPostSaved ? (
