@@ -35,8 +35,9 @@ const SinglePostPage = () => {
         Back
       </button>
       <div className=' bg-gray-200 m-10 p-10 rounded-lg relative'>
-        {user ? (
-          isPostSaved ? (
+        {user &&
+          user.role !== 'admin' &&
+          (isPostSaved ? (
             <button
               type='button'
               className=' bg-red-500 hover:bg-red-300 text-white px-3 py-1 rounded-lg float-right'
@@ -50,14 +51,7 @@ const SinglePostPage = () => {
               onClick={() => saveOrUnsavePost({ id, save: true })}>
               Save
             </button>
-          )
-        ) : (
-          <button
-            type='button'
-            className=' bg-red-500 hover:bg-red-300 text-white px-3 py-1 rounded-lg float-right'>
-            Create an account to save the post
-          </button>
-        )}
+          ))}
 
         <div>
           <h2 className='text-center text-2xl'>{singlePost.title}</h2>
