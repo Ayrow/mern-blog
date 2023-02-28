@@ -9,6 +9,7 @@ import {
   GET_ALL_POSTS_SUCCESS,
   GET_COMMENTS_SUCCESS,
   GET_SINGLE_POST_SUCCESS,
+  HANDLE_CHANGE,
   TOGGLE_SAVE_BUTTON,
 } from '../actions';
 import { useUserContext } from '../user/user.context';
@@ -61,6 +62,10 @@ const PostsProvider = ({ children }) => {
       return Promise.reject(error);
     }
   );
+
+  const handleChange = ({ name, value }) => {
+    dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
+  };
 
   const addNewPost = async ({ title, postText, shortDescription }) => {
     try {
@@ -207,6 +212,7 @@ const PostsProvider = ({ children }) => {
     <PostsContext.Provider
       value={{
         ...state,
+        handleChange,
         addNewPost,
         getAllPosts,
         getSinglePost,

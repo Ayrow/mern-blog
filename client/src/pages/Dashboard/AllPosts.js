@@ -5,12 +5,19 @@ import FilterSortComponent from '../../components/FilterSortComponent';
 import PageBtnContainer from '../../components/PageBtnContainer';
 
 const AllPosts = () => {
-  const { getAllPosts, posts, deletePost, numOfPages, totalPosts } =
-    usePostsContext();
+  const {
+    getAllPosts,
+    posts,
+    deletePost,
+    numOfPages,
+    totalPosts,
+    sort,
+    search,
+  } = usePostsContext();
 
   useEffect(() => {
     getAllPosts();
-  }, []);
+  }, [sort, search]);
 
   return (
     <div className='mx-auto container mt-5 md:w-3/4 shadow-md border-t-2 border-indigo-400 rounded-t p-10'>

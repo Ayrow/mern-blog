@@ -4,6 +4,7 @@ import {
   GET_ALL_POSTS_SUCCESS,
   GET_COMMENTS_SUCCESS,
   GET_SINGLE_POST_SUCCESS,
+  HANDLE_CHANGE,
   TOGGLE_SAVE_BUTTON,
 } from '../actions';
 
@@ -13,6 +14,11 @@ const postsReducer = (state, action) => {
       return {
         ...state,
         posts: [...state.posts, action.payload],
+      };
+    case HANDLE_CHANGE:
+      return {
+        ...state,
+        [action.payload.name]: action.payload.value,
       };
     case GET_ALL_POSTS_SUCCESS:
       return {
