@@ -15,8 +15,40 @@ const addPost = async (req, res) => {
 };
 
 const getAllPosts = async (req, res) => {
-  const posts = await BlogPost.find();
-  res.status(200).json(posts);
+  const { search, sort } = req.query;
+
+  const queryObject = {};
+
+  if (search) {
+    queryObject.title = { $regex: search, $options: 'i' };
+  }
+
+  let result = BlogPost.find(queryObject);
+
+  if (sort === 'oldest') {
+    result = result.sort('createdAt');
+  }
+
+  if (sort === 'latest') {
+    result = result.sort('-createdAt');
+  }
+
+  if (sort === 'a-z') {
+    result = result.sort('title');
+  }
+
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+
+  result = result.skip(skip).limit(limit);
+
+  const everyPosts = await result;
+
+  const totalPosts = await BlogPost.countDocuments(queryObject);
+  const numOfPages = Math.ceil(totalPosts / limit);
+
+  res.status(200).json({ everyPosts, numOfPages, totalPosts });
 };
 
 const getSinglePost = async (req, res) => {
