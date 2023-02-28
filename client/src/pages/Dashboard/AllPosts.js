@@ -2,9 +2,11 @@ import { useEffect } from 'react';
 import { usePostsContext } from '../../context/posts/posts.context';
 import DashboardSingleItem from '../../components/DashboardSingleItem';
 import FilterSortComponent from '../../components/FilterSortComponent';
+import PageBtnContainer from '../../components/PageBtnContainer';
 
 const AllPosts = () => {
-  const { getAllPosts, posts, deletePost } = usePostsContext();
+  const { getAllPosts, posts, deletePost, numOfPages, totalPosts } =
+    usePostsContext();
 
   useEffect(() => {
     getAllPosts();
@@ -15,6 +17,16 @@ const AllPosts = () => {
       <div>
         <FilterSortComponent />
       </div>
+      {totalPosts > 0 ? (
+        <p className='text-center text-xl font-bold m-5'>
+          {totalPosts === 1
+            ? '1 trip has been found'
+            : `${totalPosts} trips have been found`}
+        </p>
+      ) : (
+        <p className='text-center text-xl font-bold'>No trip found</p>
+      )}
+
       <div className='mt-10 grid grid-cols-2 uppercase font-bold'>
         <p className='text-center'>Post Title</p>
         <p className='text-center'>Actions</p>
@@ -35,6 +47,7 @@ const AllPosts = () => {
           );
         })}
       </div>
+      {numOfPages > 1 && <PageBtnContainer />}
     </div>
   );
 };
