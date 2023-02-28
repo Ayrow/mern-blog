@@ -3,6 +3,7 @@ import postsReducer from './posts.reducer';
 import axios from 'axios';
 
 import {
+  CHANGE_PAGE,
   CREATE_POST_SUCCESS,
   DELETE_POST_SUCCESS,
   GET_ALL_POSTS_SUCCESS,
@@ -198,6 +199,10 @@ const PostsProvider = ({ children }) => {
     }
   };
 
+  const changePage = (page) => {
+    dispatch({ type: CHANGE_PAGE, payload: page });
+  };
+
   return (
     <PostsContext.Provider
       value={{
@@ -213,6 +218,7 @@ const PostsProvider = ({ children }) => {
         updateComment,
         deleteComment,
         getAllComments,
+        changePage,
       }}>
       {children}
     </PostsContext.Provider>
