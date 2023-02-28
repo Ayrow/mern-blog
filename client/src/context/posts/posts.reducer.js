@@ -17,7 +17,9 @@ const postsReducer = (state, action) => {
     case GET_ALL_POSTS_SUCCESS:
       return {
         ...state,
-        posts: action.payload,
+        posts: action.payload.everyPosts,
+        numOfPages: action.payload.numOfPages,
+        totalPosts: action.payload.totalPosts,
       };
     case GET_SINGLE_POST_SUCCESS:
       return {

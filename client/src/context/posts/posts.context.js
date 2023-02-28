@@ -26,6 +26,7 @@ const initialPostsState = {
   page: 1,
   numOfPages: 1,
   sort: 'latest',
+  totalPosts: 0,
   sortOptions: ['latest', 'oldest', 'a-z'],
   limit: 10,
 };
@@ -83,7 +84,11 @@ const PostsProvider = ({ children }) => {
 
     try {
       const { data } = await authFetch.get(url);
-      dispatch({ type: GET_ALL_POSTS_SUCCESS, payload: data });
+      const { everyPosts, numOfPages, totalPosts } = data;
+      dispatch({
+        type: GET_ALL_POSTS_SUCCESS,
+        payload: { everyPosts, numOfPages, totalPosts },
+      });
     } catch (error) {
       console.log('error', error);
     }
