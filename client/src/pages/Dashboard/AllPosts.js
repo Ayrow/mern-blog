@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { usePostsContext } from '../../context/posts/posts.context';
 import DashboardSingleItem from '../../components/DashboardSingleItem';
+import FilterSortComponent from '../../components/FilterSortComponent';
 
 const AllPosts = () => {
   const { getAllPosts, posts, deletePost } = usePostsContext();
@@ -11,7 +12,9 @@ const AllPosts = () => {
 
   return (
     <div className='mx-auto container mt-5 md:w-3/4 shadow-md border-t-2 border-indigo-400 rounded-t p-10'>
-      <div>Filter and Sort Container</div>
+      <div>
+        <FilterSortComponent />
+      </div>
       <div className='mt-10 grid grid-cols-2 uppercase font-bold'>
         <p className='text-center'>Post Title</p>
         <p className='text-center'>Actions</p>
