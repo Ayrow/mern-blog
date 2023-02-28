@@ -21,6 +21,13 @@ const initialPostsState = {
   singlePost: {},
   comments: [],
   isPostSaved: false,
+
+  search: '',
+  page: 1,
+  numOfPages: 1,
+  sort: 'latest',
+  sortOptions: ['latest', 'oldest', 'a-z'],
+  limit: 10,
 };
 
 const PostsProvider = ({ children }) => {
@@ -67,8 +74,15 @@ const PostsProvider = ({ children }) => {
   };
 
   const getAllPosts = async () => {
+    const { page, search, sort, limit } = state;
+    let url = `/posts?page=${page}&sort=${sort}&limit=${limit}`;
+
+    if (search) {
+      url = url + `&search=${search}`;
+    }
+
     try {
-      const { data } = await authFetch.get('/posts');
+      const { data } = await authFetch.get(url);
       dispatch({ type: GET_ALL_POSTS_SUCCESS, payload: data });
     } catch (error) {
       console.log('error', error);
