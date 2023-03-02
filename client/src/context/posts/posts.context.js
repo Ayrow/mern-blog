@@ -184,9 +184,15 @@ const PostsProvider = ({ children }) => {
   };
 
   const getUserComments = async (id) => {
+    const { page, sort, limit } = state;
+    let url = `comments/user/${id}?page=${page}&sort=${sort}&limit=${limit}`;
     try {
-      const { data } = await authFetch.get(`comments/user/${id}`);
-      dispatch({ type: GET_COMMENTS_SUCCESS, payload: data });
+      const { data } = await authFetch.get(url);
+      const { allComments, numOfPages, totalComment } = data;
+      dispatch({
+        type: GET_COMMENTS_SUCCESS,
+        payload: { allComments, numOfPages, totalComment },
+      });
     } catch (error) {
       console.log(error);
     }
