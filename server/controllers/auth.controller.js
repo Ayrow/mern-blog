@@ -84,14 +84,15 @@ const deleteUser = async (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
-  const { sort, search } = req.query;
-
-  const queryObject = {};
-
   const user = await User.findById(req.user.userId);
+
   if (!user || user.role !== 'admin') {
     throw Error('You cannot manage users');
   }
+
+  const { sort, search } = req.query;
+
+  const queryObject = {};
 
   if (search) {
     queryObject.username = { $regex: search, $options: 'i' };
@@ -108,7 +109,7 @@ const getAllUsers = async (req, res) => {
   }
 
   if (sort === 'a-z') {
-    result = result.sort('postTitle');
+    result = result.sort('username');
   }
 
   const page = Number(req.query.page) || 1;
@@ -123,9 +124,6 @@ const getAllUsers = async (req, res) => {
   const numOfPages = Math.ceil(totalUsers / limit);
 
   res.status(200).json({ allUsers, numOfPages, totalUsers });
-
-  const users = await User.find();
-  res.status(200).json(users);
 };
 
 const savePost = async (req, res) => {

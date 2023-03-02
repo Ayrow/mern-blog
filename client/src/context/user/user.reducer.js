@@ -4,10 +4,16 @@ import {
   FETCH_ALL_USERS_SUCCESS,
   SAVE_POST_SUCCESS,
   GET_ALL_SAVED_POSTS_SUCCESS,
+  HANDLE_CHANGE,
 } from '../actions';
 
 const userReducer = (state, action) => {
   switch (action.type) {
+    case HANDLE_CHANGE:
+      return {
+        ...state,
+        [action.payload.name]: action.payload.value,
+      };
     case SETUP_USER_SUCCESS:
       return {
         ...state,
@@ -24,7 +30,9 @@ const userReducer = (state, action) => {
     case FETCH_ALL_USERS_SUCCESS:
       return {
         ...state,
-        users: action.payload,
+        users: action.payload.allUsers,
+        totalUsers: action.payload.totalUsers,
+        numOfPages: action.payload.numOfPages,
       };
     case SAVE_POST_SUCCESS:
       return {

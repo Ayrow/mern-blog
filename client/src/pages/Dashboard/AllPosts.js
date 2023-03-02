@@ -12,6 +12,8 @@ const AllPosts = () => {
     numOfPages,
     totalPosts,
     sort,
+    sortOptions,
+    handleChange,
     search,
   } = usePostsContext();
 
@@ -22,7 +24,11 @@ const AllPosts = () => {
   return (
     <div className='mx-auto container mt-5 md:w-3/4 shadow-md border-t-2 border-indigo-400 rounded-t p-10'>
       <div>
-        <FilterSortComponent />
+        <FilterSortComponent
+          sort={sort}
+          sortOptions={sortOptions}
+          handleChange={handleChange}
+        />
       </div>
       {totalPosts > 0 ? (
         <p className='text-center text-xl font-bold m-5'>

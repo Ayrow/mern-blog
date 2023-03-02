@@ -11,6 +11,8 @@ const AllComments = () => {
     deleteComment,
     updateComment,
     sort,
+    sortOptions,
+    handleChange,
     numOfPages,
     totalComments,
   } = usePostsContext();
@@ -22,7 +24,11 @@ const AllComments = () => {
   return (
     <div className='mx-auto container mt-5 shadow-md border-t-2 border-indigo-400 rounded-t p-10'>
       <div>
-        <FilterSortComponent />
+        <FilterSortComponent
+          sort={sort}
+          sortOptions={sortOptions}
+          handleChange={handleChange}
+        />
       </div>
 
       {totalComments > 0 ? (

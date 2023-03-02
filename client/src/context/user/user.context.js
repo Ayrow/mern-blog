@@ -116,9 +116,13 @@ const UserProvider = ({ children }) => {
     }
     try {
       const { data } = await authFetch.get(url);
-      dispatch({ type: FETCH_ALL_USERS_SUCCESS, payload: data });
+      const { allUsers, numOfPages, totalUsers } = data;
+      dispatch({
+        type: FETCH_ALL_USERS_SUCCESS,
+        payload: { allUsers, numOfPages, totalUsers },
+      });
     } catch (error) {
-      logoutUser();
+      // logoutUser();
     }
   };
 

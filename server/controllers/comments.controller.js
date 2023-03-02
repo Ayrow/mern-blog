@@ -80,11 +80,10 @@ const getAllComments = async (req, res) => {
 
 const getUserComments = async (req, res) => {
   const { id } = req.params;
-  const userID = req.user.userId;
   const { sort } = req.query;
   const queryObject = {};
 
-  if (id !== userID) {
+  if (id !== req.userId) {
     throw Error('Issue verifying your account');
   }
 

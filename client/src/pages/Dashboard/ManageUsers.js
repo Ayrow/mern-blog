@@ -11,18 +11,26 @@ const ManageUsers = () => {
     deleteUser,
     updateUserFromAdmin,
     sort,
+    sortOptions,
     numOfPages,
     totalUsers,
+    search,
+    handleChange,
   } = useUserContext();
 
   useEffect(() => {
     fetchAllUsers();
-  }, [totalUsers, sort]);
+  }, [totalUsers, sort, search]);
 
   return (
     <div className='mx-auto container mt-5 md:w-3/4 shadow-md border-t-2 border-indigo-400 rounded-t p-10'>
       <div>
-        <FilterSortComponent />
+        <FilterSortComponent
+          sort={sort}
+          sortOptions={sortOptions}
+          handleChange={handleChange}
+          search={true}
+        />
       </div>
 
       {totalUsers > 0 ? (
