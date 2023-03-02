@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { usePostsContext } from '../context/posts/posts.context';
 
 const FilterSortComponent = () => {

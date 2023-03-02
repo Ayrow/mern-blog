@@ -6,6 +6,7 @@ import {
   FETCH_ALL_USERS_SUCCESS,
   SAVE_POST_SUCCESS,
   GET_ALL_SAVED_POSTS_SUCCESS,
+  HANDLE_CHANGE,
 } from '../actions';
 import axios from 'axios';
 import { useAppContext } from '../app/app.context';
@@ -23,6 +24,13 @@ export const initialUserState = {
   userRoles: ['admin', 'follower'],
   savedPosts: savedPosts || [],
   userAllSavedPosts: [],
+  search: '',
+  page: 1,
+  numOfPages: 1,
+  sort: 'latest',
+  totalUsers: 0,
+  sortOptions: ['latest', 'oldest', 'a-z'],
+  limit: 10,
 };
 
 const UserProvider = ({ children }) => {
@@ -73,6 +81,10 @@ const UserProvider = ({ children }) => {
     localStorage.removeItem('savedPosts');
   };
 
+  const handleChange = ({ name, value }) => {
+    dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
+  };
+
   const setupUser = async ({ username, password, email, endpoint }) => {
     try {
       const { data } = await authFetch.post(`/auth/${endpoint}`, {
@@ -96,8 +108,14 @@ const UserProvider = ({ children }) => {
   };
 
   const fetchAllUsers = async () => {
+    const { page, search, sort, limit } = state;
+    let url = `/auth/users?page=${page}&sort=${sort}&limit=${limit}`;
+
+    if (search) {
+      url = url + `&search=${search}`;
+    }
     try {
-      const { data } = await authFetch.get(`/auth/users`);
+      const { data } = await authFetch.get(url);
       dispatch({ type: FETCH_ALL_USERS_SUCCESS, payload: data });
     } catch (error) {
       logoutUser();
@@ -166,6 +184,7 @@ const UserProvider = ({ children }) => {
     <UserContext.Provider
       value={{
         ...state,
+        handleChange,
         setupUser,
         logoutUser,
         fetchAllUsers,
