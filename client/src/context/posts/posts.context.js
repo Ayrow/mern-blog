@@ -173,7 +173,11 @@ const PostsProvider = ({ children }) => {
 
     try {
       const { data } = await authFetch.get(url);
-      dispatch({ type: GET_COMMENTS_SUCCESS, payload: data });
+      const { allComments, numOfPages, totalComment } = data;
+      dispatch({
+        type: GET_COMMENTS_SUCCESS,
+        payload: { allComments, numOfPages, totalComment },
+      });
     } catch (error) {
       console.log(error);
     }

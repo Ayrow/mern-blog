@@ -43,7 +43,9 @@ const postsReducer = (state, action) => {
     case GET_COMMENTS_SUCCESS:
       return {
         ...state,
-        comments: action.payload,
+        comments: action.payload.allComments,
+        numOfPages: action.payload.numOfPages,
+        totalComments: action.payload.totalComments,
       };
     case TOGGLE_SAVE_BUTTON: {
       return {

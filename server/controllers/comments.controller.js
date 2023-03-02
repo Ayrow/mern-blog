@@ -61,7 +61,7 @@ const getAllComments = async (req, res) => {
   }
 
   if (sort === 'a-z') {
-    result = result.sort('title');
+    result = result.sort('postTitle');
   }
 
   const page = Number(req.query.page) || 1;
