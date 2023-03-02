@@ -173,10 +173,10 @@ const PostsProvider = ({ children }) => {
 
     try {
       const { data } = await authFetch.get(url);
-      const { allComments, numOfPages, totalComment } = data;
+      const { allComments, numOfPages, totalComments } = data;
       dispatch({
         type: GET_COMMENTS_SUCCESS,
-        payload: { allComments, numOfPages, totalComment },
+        payload: { allComments, numOfPages, totalComments },
       });
     } catch (error) {
       console.log(error);
@@ -188,10 +188,10 @@ const PostsProvider = ({ children }) => {
     let url = `comments/user/${id}?page=${page}&sort=${sort}&limit=${limit}`;
     try {
       const { data } = await authFetch.get(url);
-      const { allComments, numOfPages, totalComment } = data;
+      const { allComments, numOfPages, totalComments } = data;
       dispatch({
         type: GET_COMMENTS_SUCCESS,
-        payload: { allComments, numOfPages, totalComment },
+        payload: { allComments, numOfPages, totalComments },
       });
     } catch (error) {
       console.log(error);
