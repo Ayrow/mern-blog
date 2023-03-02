@@ -81,14 +81,41 @@ const getAllComments = async (req, res) => {
 const getUserComments = async (req, res) => {
   const { id } = req.params;
   const userID = req.user.userId;
+  const { sort } = req.query;
+  const queryObject = {};
 
   if (id !== userID) {
     throw Error('Issue verifying your account');
   }
 
-  const userComments = await Comments.find({ createdBy: id });
+  queryObject.createdBy = id;
 
-  res.status(200).json(userComments);
+  let result = Comments.find(queryObject);
+
+  if (sort === 'oldest') {
+    result = result.sort('createdAt');
+  }
+
+  if (sort === 'latest') {
+    result = result.sort('-createdAt');
+  }
+
+  if (sort === 'a-z') {
+    result = result.sort('postTitle');
+  }
+
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+
+  result = result.skip(skip).limit(limit);
+
+  const allComments = await result;
+
+  const totalComments = await Comments.countDocuments(queryObject);
+  const numOfPages = Math.ceil(totalComments / limit);
+
+  res.status(200).json({ allComments, numOfPages, totalComments });
 };
 
 const getPostComments = async (req, res) => {
