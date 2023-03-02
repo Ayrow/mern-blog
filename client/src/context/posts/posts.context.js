@@ -29,6 +29,7 @@ const initialPostsState = {
   numOfPages: 1,
   sort: 'latest',
   totalPosts: 0,
+  totalComments: 0,
   sortOptions: ['latest', 'oldest', 'a-z'],
   limit: 10,
 };
@@ -167,8 +168,11 @@ const PostsProvider = ({ children }) => {
   };
 
   const getAllComments = async () => {
+    const { page, sort, limit } = state;
+    let url = `comments?page=${page}&sort=${sort}&limit=${limit}`;
+
     try {
-      const { data } = await authFetch.get('comments');
+      const { data } = await authFetch.get(url);
       dispatch({ type: GET_COMMENTS_SUCCESS, payload: data });
     } catch (error) {
       console.log(error);
