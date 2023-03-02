@@ -84,13 +84,48 @@ const deleteUser = async (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
+  const { sort, search } = req.query;
+
+  const queryObject = {};
+
   const user = await User.findById(req.user.userId);
   if (!user || user.role !== 'admin') {
     throw Error('You cannot manage users');
-  } else {
-    const users = await User.find();
-    res.status(200).json(users);
   }
+
+  if (search) {
+    queryObject.username = { $regex: search, $options: 'i' };
+  }
+
+  let result = User.find(queryObject);
+
+  if (sort === 'oldest') {
+    result = result.sort('createdAt');
+  }
+
+  if (sort === 'latest') {
+    result = result.sort('-createdAt');
+  }
+
+  if (sort === 'a-z') {
+    result = result.sort('postTitle');
+  }
+
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+
+  result = result.skip(skip).limit(limit);
+
+  const allUsers = await result;
+
+  const totalUsers = await User.countDocuments(queryObject);
+  const numOfPages = Math.ceil(totalUsers / limit);
+
+  res.status(200).json({ allUsers, numOfPages, totalUsers });
+
+  const users = await User.find();
+  res.status(200).json(users);
 };
 
 const savePost = async (req, res) => {
