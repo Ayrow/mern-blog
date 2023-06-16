@@ -7,6 +7,7 @@ import commentsRouter from './routes/commentsRoutes.js';
 
 const app = express();
 dotenv.config();
+dotenv.config({ path: `.env.local`, override: true });
 
 app.use(express.json());
 
@@ -22,7 +23,7 @@ const port = process.env.PORT || 6000;
 
 const start = async () => {
   try {
-    await connectDB(process.env.MONGO_URL);
+    await connectDB(process.env.MONGO_URI);
     app.listen(port, () => {
       console.log(`server is running on port ${port}`);
     });
