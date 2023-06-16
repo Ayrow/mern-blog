@@ -101,20 +101,19 @@ const SinglePostPage = () => {
             </p>
           ) : (
             <div className='flex flex-col gap-5'>
-              {comments &&
-                comments?.map((comment, index) => {
-                  const { createdByUsername, body } = comment;
-                  return (
-                    <div
-                      key={index}
-                      className='border border-white rounded-lg p-2 shadow-sm shadow-slate-500'>
-                      <h3 className='text-lg font-bold capitalize'>
-                        {createdByUsername}
-                      </h3>
-                      <p className='py-5'>{body}</p>
-                    </div>
-                  );
-                })}
+              {comments?.map((comment, index) => {
+                const { createdByUsername, body } = comment;
+                return (
+                  <div
+                    key={index}
+                    className='border border-white rounded-lg p-2 shadow-sm shadow-slate-500'>
+                    <h3 className='text-lg font-bold capitalize'>
+                      {createdByUsername}
+                    </h3>
+                    <p className='py-5'>{body}</p>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>

@@ -8,6 +8,7 @@ import {
   DELETE_POST_SUCCESS,
   GET_ALL_POSTS_SUCCESS,
   GET_COMMENTS_SUCCESS,
+  GET_POST_COMMENTS_SUCCESS,
   GET_SINGLE_POST_SUCCESS,
   HANDLE_CHANGE,
   TOGGLE_SAVE_BUTTON,
@@ -161,7 +162,8 @@ const PostsProvider = ({ children }) => {
   const getPostComments = async (id) => {
     try {
       const { data } = await authFetch.get(`comments/post/${id}`);
-      dispatch({ type: GET_COMMENTS_SUCCESS, payload: data });
+      console.log('data', data);
+      dispatch({ type: GET_POST_COMMENTS_SUCCESS, payload: data });
     } catch (error) {
       console.log('error', error);
     }

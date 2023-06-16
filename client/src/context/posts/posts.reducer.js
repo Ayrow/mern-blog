@@ -3,6 +3,7 @@ import {
   DELETE_POST_SUCCESS,
   GET_ALL_POSTS_SUCCESS,
   GET_COMMENTS_SUCCESS,
+  GET_POST_COMMENTS_SUCCESS,
   GET_SINGLE_POST_SUCCESS,
   HANDLE_CHANGE,
   TOGGLE_SAVE_BUTTON,
@@ -39,6 +40,11 @@ const postsReducer = (state, action) => {
       return {
         ...state,
         posts: newPostList,
+      };
+    case GET_POST_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        comments: action.payload,
       };
     case GET_COMMENTS_SUCCESS:
       return {
