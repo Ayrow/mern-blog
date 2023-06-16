@@ -20,7 +20,7 @@ const LoginPage = () => {
     if (user) {
       navigate('/posts');
     }
-  }, []);
+  }, [user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,14 +32,18 @@ const LoginPage = () => {
       if (isMember) {
         const endpoint = 'loginUser';
         setupUser({ username, email, password, endpoint });
-        navigate('/posts');
+        if (user) {
+          navigate('/posts');
+        }
       } else {
         if (!username) {
           alert('please enter a unique username');
         } else {
           const endpoint = 'registerUser';
           setupUser({ username, email, password, endpoint });
-          navigate('/posts');
+          if (user) {
+            navigate('/posts');
+          }
         }
       }
     }
